@@ -1,10 +1,11 @@
 
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, speed: number, xFactor: number, yFactor: number, zFactor: number }) => {
+const Bubble = ({ factor, speed, xFactor, yFactor, zFactor, mousePosRef }: { factor: number, speed: number, xFactor: number, yFactor: number, zFactor: number, mousePosRef: React.RefObject<{ x: number, y: number }> }) => {
   const ref = useRef<THREE.Mesh>(null!);
+  const { viewport } = useThree();
   const position = useMemo(() => {
     const x = xFactor + (Math.random() - 0.5) * 30; // wider spread
     const y = yFactor + Math.random() * -30; // start from further down
@@ -14,6 +15,21 @@ const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, 
 
   useFrame((state, delta) => {
     if (ref.current) {
+      if (mousePosRef.current) {
+        const { x: mouseX, y: mouseY } = mousePosRef.current;
+        const mouse3D = new THREE.Vector3((mouseX * viewport.width) / 2, (mouseY * viewport.height) / 2, 0);
+        
+        const distance = ref.current.position.distanceTo(mouse3D);
+        const repulsionRadius = 4;
+        const repulsionStrength = 0.2;
+
+        if (distance < repulsionRadius) {
+          const direction = ref.current.position.clone().sub(mouse3D).normalize();
+          const force = direction.multiplyScalar(repulsionStrength * (1 - distance / repulsionRadius));
+          ref.current.position.add(force);
+        }
+      }
+
       ref.current.position.y += speed * delta;
       if (ref.current.position.y > 20) { // reset when it goes high up
         ref.current.position.y = -20; // reset to the bottom
@@ -38,7 +54,7 @@ const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, 
   );
 };
 
-const Bubbles = ({ count = 100 }) => {
+const Bubbles = ({ count = 100, mousePosRef }: { count?: number, mousePosRef: React.RefObject<{ x: number, y: number }> }) => {
   const bubbles = useMemo(() => 
     Array.from({ length: count }, (_, i) => ({
       key: i,
@@ -51,7 +67,7 @@ const Bubbles = ({ count = 100 }) => {
 
   return (
     <>
-      {bubbles.map(bubble => <Bubble key={bubble.key} {...bubble} />)}
+      {bubbles.map(bubble => <Bubble key={bubble.key} {...bubble} mousePosRef={mousePosRef} />)}
     </>
   );
 };
