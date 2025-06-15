@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { useState, useMemo, useRef, useLayoutEffect, useEffect } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -66,13 +66,37 @@ const Experience = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number | 'auto'>('auto');
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ y: 0, handleY: 0 });
+  const [handleY, setHandleY] = useState(4);
 
   useLayoutEffect(() => {
     if (containerRef.current) {
       setContainerHeight(containerRef.current.offsetHeight);
     }
   }, [selectedDuration]);
+  
+  // Sync handle position when selectedDuration changes (e.g., by button click)
+  useEffect(() => {
+    if (isDragging || !timelineContainerRef.current) return;
+
+    const timelineHeight = timelineContainerRef.current.offsetHeight;
+    if (timelineHeight === 0) return;
+
+    const currentIndex = uniqueDurations.indexOf(selectedDuration);
+    if (currentIndex === -1) return;
+
+    const numDurations = uniqueDurations.length;
+    const handleHeight = 32;
+    const segmentHeight = timelineHeight / numDurations;
+    const newY = currentIndex * segmentHeight + (segmentHeight / 2) - (handleHeight / 2);
+    
+    setHandleY(newY);
+
+  }, [selectedDuration, containerHeight, isDragging, uniqueDurations]);
 
   const handleDurationClick = (duration: string) => {
     if (isTransitioning || duration === selectedDuration) {
@@ -99,6 +123,67 @@ const Experience = () => {
       setIsTransitioning(false);
     }, 1000); // Total duration (exit + enter)
   };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTransitioning) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStart({
+        y: e.clientY,
+        handleY: handleY,
+    });
+    document.body.style.cursor = 'ns-resize';
+    document.body.style.userSelect = 'none';
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+        if (!isDragging || !timelineContainerRef.current) return;
+        
+        e.preventDefault();
+
+        const rect = timelineContainerRef.current.getBoundingClientRect();
+        const timelineHeight = rect.height;
+        
+        const deltaY = e.clientY - dragStart.y;
+        let newY = dragStart.handleY + deltaY;
+        
+        const handleHeight = 32;
+        newY = Math.max(0, Math.min(newY, timelineHeight - handleHeight));
+        setHandleY(newY);
+        
+        const numDurations = uniqueDurations.length;
+        if (numDurations === 0 || timelineHeight === 0) return;
+
+        const segmentHeight = timelineHeight / numDurations;
+        let newIndex = Math.floor((newY + handleHeight / 2) / segmentHeight);
+        newIndex = Math.max(0, Math.min(newIndex, numDurations - 1));
+        
+        const newDuration = uniqueDurations[newIndex];
+        
+        if (newDuration && newDuration !== selectedDuration) {
+            handleDurationClick(newDuration);
+        }
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        setIsDragging(false);
+        document.body.style.cursor = 'default';
+        document.body.style.userSelect = 'auto';
+    };
+
+    if (isDragging) {
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart, selectedDuration, uniqueDurations, handleDurationClick]);
 
   const filteredExperiences = useMemo(() => {
     return sortedExperiences.filter(exp => exp.duration === selectedDuration);
@@ -134,8 +219,18 @@ const Experience = () => {
           </div>
 
           {/* Timeline */}
-          <div className="relative flex-1" style={{ height: containerHeight, transition: 'height 0.5s ease-in-out' }}>
+          <div ref={timelineContainerRef} className="relative flex-1" style={{ height: containerHeight, transition: 'height 0.5s ease-in-out' }}>
             <div className="absolute left-4 top-2 w-0.5 h-full bg-primary/30"></div>
+            
+            <div
+              style={{ top: `${handleY}px` }}
+              onMouseDown={handleMouseDown}
+              className="absolute left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center cursor-ns-resize z-20"
+            >
+              <div className="bg-background border-4 border-primary rounded-full h-8 w-8 z-10 flex items-center justify-center">
+                <Briefcase size={14} className="text-primary" />
+              </div>
+            </div>
 
             <div ref={containerRef} key={selectedDuration} className={animationClass}>
               {filteredExperiences.map((exp, index) => (
