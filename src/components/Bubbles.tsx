@@ -28,7 +28,7 @@ const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, 
       <meshStandardMaterial 
         color="#ccfbf1" 
         transparent 
-        opacity={0.6} 
+        opacity={0.2} 
         roughness={0.1} 
         metalness={0.2}
         emissive="#06b6d4"
