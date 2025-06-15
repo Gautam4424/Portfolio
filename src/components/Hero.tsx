@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -113,11 +112,6 @@ const Hero = () => {
           >
             <Mail size={24} />
           </a>
-        </div>
-
-        {/* Contact Info */}
-        <div className="text-sm text-slate-400 animate-fade-in animation-delay-800">
-          <p>Zirakpur | gautamsachdeva156@gmail.com | +916284217423</p>
         </div>
       </div>
     </section>

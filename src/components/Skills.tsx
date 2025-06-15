@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
+import { Code, Globe, Cloud, Database, Server, TerminalSquare } from 'lucide-react';
 
 const FloatingSkill = ({ 
   text, 
@@ -36,11 +37,11 @@ const SkillCategory = ({
 }: { 
   title: string; 
   skills: string[]; 
-  icon: string;
+  icon: React.ReactNode;
 }) => (
   <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
     <div className="flex items-center mb-4">
-      <span className="text-2xl mr-3">{icon}</span>
+      <span className="text-cyan-400 mr-3">{icon}</span>
       <h3 className="text-xl font-bold text-white">{title}</h3>
     </div>
     <div className="flex flex-wrap gap-2">
@@ -60,32 +61,32 @@ const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      icon: "💻",
+      icon: <Code size={28} />,
       skills: ["C++", "JavaScript", "Python"]
     },
     {
       title: "Web Development",
-      icon: "🌐",
+      icon: <Globe size={28} />,
       skills: ["HTML", "CSS", "JavaScript", "React.js"]
     },
     {
       title: "DevOps & Cloud",
-      icon: "☁️",
+      icon: <Cloud size={28} />,
       skills: ["Docker", "Kubernetes", "Jenkins", "SonarQube", "CI/CD Pipelines", "Terraform"]
     },
     {
       title: "Databases",
-      icon: "🗄️",
+      icon: <Database size={28} />,
       skills: ["MySQL", "MongoDB", "Elastic Search"]
     },
     {
       title: "Web Servers",
-      icon: "🖥️",
+      icon: <Server size={28} />,
       skills: ["Nginx", "Apache2"]
     },
     {
       title: "Operating Systems",
-      icon: "🐧",
+      icon: <TerminalSquare size={28} />,
       skills: ["Windows", "Linux"]
     }
   ];

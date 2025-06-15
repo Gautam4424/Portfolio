@@ -1,23 +1,28 @@
 
 import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, ServerCog, Workflow, CloudCog, Code2 } from 'lucide-react';
 
 const ProjectCard = ({ 
   title, 
   description, 
   technologies,
   achievements,
-  links 
+  links,
+  icon
 }: {
   title: string;
   description: string;
   technologies: string[];
   achievements: string[];
   links?: { github?: string; live?: string; };
+  icon: React.ReactNode;
 }) => (
   <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105">
     <div className="flex justify-between items-start mb-4">
-      <h3 className="text-xl font-bold text-white">{title}</h3>
+      <div className="flex items-center gap-3">
+        <span className="text-cyan-400">{icon}</span>
+        <h3 className="text-xl font-bold text-white">{title}</h3>
+      </div>
       {links && (
         <div className="flex space-x-2">
           {links.github && (
@@ -68,7 +73,12 @@ const Projects = () => {
         "Implemented Infrastructure as Code using Terraform for consistent environment provisioning",
         "Achieved 99.9% uptime through automated health checks and self-healing infrastructure",
         "Reduced deployment time by 80% through fully automated CI/CD pipelines"
-      ]
+      ],
+      icon: <ServerCog size={24} />,
+      links: {
+        github: "https://github.com/Gautam4424",
+        live: "#"
+      }
     },
     {
       title: "MaximPro - DevOps Pipeline Platform",
@@ -79,7 +89,12 @@ const Projects = () => {
         "Implemented blue-green deployment strategy reducing deployment risks by 95%",
         "Configured advanced monitoring and alerting using Prometheus and Grafana",
         "Achieved zero-downtime deployments through load balancer integration"
-      ]
+      ],
+      icon: <Workflow size={24} />,
+      links: {
+        github: "https://github.com/Gautam4424",
+        live: "#"
+      }
     },
     {
       title: "HireLinode - Cloud Infrastructure Management",
@@ -90,7 +105,12 @@ const Projects = () => {
         "Implemented container orchestration using Kubernetes for high availability",
         "Built infrastructure monitoring dashboard with real-time metrics and alerts",
         "Established disaster recovery procedures with automated backup strategies"
-      ]
+      ],
+      icon: <CloudCog size={24} />,
+      links: {
+        github: "https://github.com/Gautam4424",
+        live: "#"
+      }
     },
     {
       title: "Personal Portfolio - Full-Stack DevOps Showcase",
@@ -101,7 +121,12 @@ const Projects = () => {
         "Implemented automated testing and deployment using GitHub Actions",
         "Configured web server with SSL/TLS encryption and security headers",
         "Achieved 100% Lighthouse performance score through optimization techniques"
-      ]
+      ],
+      icon: <Code2 size={24} />,
+      links: {
+        github: "https://github.com/Gautam4424",
+        live: "#"
+      }
     }
   ];
 
