@@ -57,25 +57,31 @@ const SkillCategory = ({
 }) => {
   const { resolvedTheme } = useTheme();
 
+  const cardOuterClass = resolvedTheme === 'dark' 
+    ? "rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300"
+    : "rounded-xl border border-border transition-all duration-300";
+
+  const cardInnerClass = resolvedTheme === 'dark'
+    ? "bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full"
+    : "bg-card rounded-[10.5px] p-6 h-full";
+
   return (
-    <div className={
-        resolvedTheme === 'dark'
-        ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
-        : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300"
-    }>
-      <div className="flex items-center mb-4">
-        <span className="text-primary mr-3">{icon}</span>
-        <h3 className="text-xl font-bold text-foreground">{title}</h3>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill, index) => (
-          <span 
-            key={index} 
-            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
-          >
-            {skill}
-          </span>
-        ))}
+    <div className={cardOuterClass}>
+      <div className={cardInnerClass}>
+        <div className="flex items-center mb-4">
+          <span className="text-primary mr-3">{icon}</span>
+          <h3 className="text-xl font-bold text-foreground">{title}</h3>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
+            <span 
+              key={index} 
+              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
