@@ -117,33 +117,20 @@ const Experience = () => {
 
         <div className="flex flex-col md:flex-row gap-8 md:gap-16">
           {/* Duration Selector */}
-          <div className="relative md:w-48 shrink-0">
-            <div className="absolute left-2 top-2 bottom-2 w-0.5 bg-border hidden md:block"></div>
-            <div className="flex flex-row md:flex-col gap-4 justify-center md:justify-start flex-wrap md:flex-nowrap">
-              {uniqueDurations.map(duration => (
-                <button
-                  key={duration}
-                  onClick={() => handleDurationClick(duration)}
-                  className={`relative text-left p-2 pl-8 rounded-lg transition-colors duration-300 group w-auto md:w-full ${
-                    selectedDuration === duration
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  <div className={`
-                    absolute top-1/2 left-0 w-4 h-4 rounded-full border-4
-                    transform -translate-y-1/2
-                    transition-all duration-300
-                    ${
-                      selectedDuration === duration
-                        ? 'bg-primary border-background'
-                        : 'bg-background border-border group-hover:border-primary'
-                    }
-                  `}></div>
-                  <span className="font-semibold text-sm whitespace-nowrap">{duration}</span>
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-row md:flex-col gap-4 justify-center md:justify-start flex-wrap">
+            {uniqueDurations.map(duration => (
+              <button
+                key={duration}
+                onClick={() => handleDurationClick(duration)}
+                className={`w-auto text-sm font-bold p-2 px-4 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                  selectedDuration === duration
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
+                    : 'text-muted-foreground bg-card border border-border hover:text-foreground hover:border-primary'
+                }`}
+              >
+                {duration}
+              </button>
+            ))}
           </div>
 
           {/* Timeline */}
