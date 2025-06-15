@@ -1,9 +1,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
+import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const navLinks = [
+  { name: 'Home', href: '#home', icon: Home },
   { name: 'About', href: '#about', icon: User },
   { name: 'Experience', href: '#experience', icon: Briefcase },
   { name: 'Projects', href: '#projects', icon: FolderGit2 },
