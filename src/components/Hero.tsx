@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Sphere, Box, Torus } from '@react-three/drei';
@@ -16,7 +17,7 @@ const AnimatedSphere = ({ position }: { position: [number, number, number] }) =>
   });
 
   return (
-    <Sphere ref={meshRef} position={position} args={[0.5, 32, 32]}>
+    <Sphere ref={meshRef} position={position}>
       <meshStandardMaterial color="#3b82f6" wireframe />
     </Sphere>
   );
@@ -34,7 +35,7 @@ const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
   });
 
   return (
-    <Box ref={meshRef} position={position} args={[0.8, 0.8, 0.8]}>
+    <Box ref={meshRef} position={position}>
       <meshStandardMaterial color="#06b6d4" wireframe />
     </Box>
   );
@@ -52,7 +53,7 @@ const AnimatedTorus = ({ position }: { position: [number, number, number] }) => 
   });
 
   return (
-    <Torus ref={meshRef} position={position} args={[0.6, 0.2, 16, 32]}>
+    <Torus ref={meshRef} position={position}>
       <meshStandardMaterial color="#8b5cf6" wireframe />
     </Torus>
   );
