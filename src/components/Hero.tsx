@@ -1,7 +1,5 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Box, Torus } from '@react-three/drei';
 import { Mesh } from 'three';
 import { Github, Linkedin, Mail } from 'lucide-react';
 
@@ -17,9 +15,10 @@ const AnimatedSphere = ({ position }: { position: [number, number, number] }) =>
   });
 
   return (
-    <Sphere ref={meshRef} position={position}>
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial color="#3b82f6" wireframe />
-    </Sphere>
+    </mesh>
   );
 };
 
@@ -35,9 +34,10 @@ const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
   });
 
   return (
-    <Box ref={meshRef} position={position}>
+    <mesh ref={meshRef} position={position}>
+      <boxGeometry args={[0.8, 0.8, 0.8]} />
       <meshStandardMaterial color="#06b6d4" wireframe />
-    </Box>
+    </mesh>
   );
 };
 
@@ -53,9 +53,10 @@ const AnimatedTorus = ({ position }: { position: [number, number, number] }) => 
   });
 
   return (
-    <Torus ref={meshRef} position={position}>
+    <mesh ref={meshRef} position={position}>
+      <torusGeometry args={[0.6, 0.2, 16, 32]} />
       <meshStandardMaterial color="#8b5cf6" wireframe />
-    </Torus>
+    </mesh>
   );
 };
 

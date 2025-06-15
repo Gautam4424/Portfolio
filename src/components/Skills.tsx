@@ -1,7 +1,5 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
 import { Mesh } from 'three';
 
 const FloatingSkill = ({ 
@@ -23,16 +21,10 @@ const FloatingSkill = ({
   });
 
   return (
-    <Text
-      ref={meshRef}
-      position={position}
-      fontSize={0.4}
-      color={color}
-      anchorX="center"
-      anchorY="middle"
-    >
-      {text}
-    </Text>
+    <mesh ref={meshRef} position={position}>
+      <boxGeometry args={[1, 0.3, 0.1]} />
+      <meshStandardMaterial color={color} />
+    </mesh>
   );
 };
 
