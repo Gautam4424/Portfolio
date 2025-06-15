@@ -37,7 +37,7 @@ const AnimatedWavyPlane = () => {
   if (!mounted) return null;
 
   return (
-    <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, 0]}>
+    <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, -5]}>
       <planeGeometry args={[30, 30, 70, 70]} />
       <meshStandardMaterial
         color={resolvedTheme === 'dark' ? '#ffffff' : '#0a0a0a'}
