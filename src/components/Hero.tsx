@@ -1,58 +1,24 @@
 
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
-
-const AnimatedWavyPlane = () => {
-  const meshRef = useRef<Mesh>(null!);
-  
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      const time = clock.elapsedTime;
-      const positions = meshRef.current.geometry.attributes.position;
-      
-      if (!meshRef.current.geometry.userData.originalPosition) {
-        meshRef.current.geometry.userData.originalPosition = positions.clone();
-      }
-      
-      const originalPosition = meshRef.current.geometry.userData.originalPosition;
-
-      for (let i = 0; i < positions.count; i++) {
-        const x = originalPosition.getX(i);
-        const y = originalPosition.getY(i);
-        const z = (Math.sin(x * 0.2 + time * 0.3) + Math.cos(y * 0.2 + time * 0.3)) * 1;
-        positions.setZ(i, z);
-      }
-      positions.needsUpdate = true;
-      meshRef.current.geometry.computeVertexNormals();
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, -5]}>
-      <planeGeometry args={[50, 30, 70, 70]} />
-      <meshStandardMaterial
-        color={'#ffffff'}
-        wireframe
-      />
-    </mesh>
-  );
-};
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import Bubbles from './Bubbles';
 
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 5, 10], fov: 75 }}>
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <AnimatedWavyPlane />
+        <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[0, 5, 5]} intensity={1} />
+          <pointLight position={[-10, -10, -10]} color="blue" intensity={2} />
+          <pointLight position={[10, 10, 10]} color="cyan" intensity={2} />
+          <Bubbles count={200} />
         </Canvas>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-foreground max-w-2xl mx-auto -mt-24 bg-black/30 backdrop-blur-sm p-8 rounded-2xl">
+      <div className="relative z-10 text-center text-foreground max-w-2xl mx-auto -mt-72 bg-black/30 backdrop-blur-sm p-8 rounded-2xl">
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
