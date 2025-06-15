@@ -1,34 +1,11 @@
 
-import React, { useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import Bubbles from './Bubbles';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
-  const mousePos = useRef({ x: 0, y: 0 });
-
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const { clientX, clientY, currentTarget } = event;
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = ((clientX - left) / width) * 2 - 1;
-    const y = -((clientY - top) / height) * 2 + 1;
-    mousePos.current = { x, y };
-  };
-
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0" onPointerMove={handlePointerMove}>
-        <Canvas camera={{ position: [0, 0, 15], fov: 75 }}>
-          <ambientLight intensity={0.2} />
-          <directionalLight position={[0, 5, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -10]} color="blue" intensity={2} />
-          <pointLight position={[10, 10, 10]} color="cyan" intensity={2} />
-          <Bubbles count={200} mousePosRef={mousePos} />
-        </Canvas>
-      </div>
-
       {/* Content */}
       <div 
         className="relative z-10 text-center text-foreground max-w-3xl mx-auto p-8 rounded-2xl 
