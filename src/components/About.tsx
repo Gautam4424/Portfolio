@@ -12,8 +12,8 @@ const About = () => {
           <div className="md:col-span-2">
             <div className="relative group">
               <img 
-                src="/photo-1488590528505-98d2b5aba04b.jpg" 
-                alt="Laptop on a desk with code" 
+                src="/lovable-uploads/c3378a3d-837f-4320-9fd0-b14bb0953e4a.png" 
+                alt="Futuristic tech interface with hands on keyboard" 
                 className="rounded-lg shadow-2xl w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 opacity-20 group-hover:opacity-0 transition-opacity duration-500 rounded-lg"></div>
