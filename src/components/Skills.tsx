@@ -1,25 +1,20 @@
-import React, { useRef, useState, useEffect } from 'react';
+
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { 
   Code, Globe, Cloud, Database, Server, TerminalSquare,
   Braces, FileCode2, Paintbrush, Atom, Container, Wrench, Search, Workflow, CloudCog, Monitor, Terminal 
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 const FloatingSkill = ({ 
-  text, 
   position, 
-  color: propColor = "#3b82f6" 
+  color = "#3b82f6" 
 }: { 
-  text: string; 
   position: [number, number, number];
   color?: string;
 }) => {
   const meshRef = useRef<Mesh>(null);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -28,23 +23,16 @@ const FloatingSkill = ({
     }
   });
 
-  if (!mounted) return null;
-
-  const lightColorMap = {
-    "#61dafb": "#7dd3fc", // React
-    "#2496ed": "#38bdf8", // Docker
-    "#3776ab": "#60a5fa", // Python
-    "#ff9900": "#fbbf24", // AWS
-    "#d33833": "#f87171", // Jenkins
-    "#326ce5": "#818cf8", // K8s
-  };
-
-  const color = resolvedTheme === 'dark' ? propColor : (lightColorMap[propColor] || propColor);
-
   return (
     <mesh ref={meshRef} position={position}>
-      <boxGeometry args={[1, 0.3, 0.1]} />
-      <meshStandardMaterial color={color} />
+      <sphereGeometry args={[0.5, 32, 32]} />
+      <meshStandardMaterial 
+        color={color}
+        roughness={0.1}
+        metalness={0.6}
+        emissive={color}
+        emissiveIntensity={0.2}
+      />
     </mesh>
   );
 };
@@ -52,20 +40,19 @@ const FloatingSkill = ({
 const SkillCategory = ({ 
   title, 
   skills, 
-  icon 
+  icon,
+  animationDelay
 }: { 
   title: string; 
   skills: { name: string; icon: React.ReactNode }[]; 
   icon: React.ReactNode;
+  animationDelay: string;
 }) => {
-  const { resolvedTheme } = useTheme();
-
   return (
-    <div className={
-        resolvedTheme === 'dark'
-        ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
-        : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300"
-    }>
+    <div 
+      className="bg-slate-900/30 backdrop-blur-md border border-cyan-400/20 rounded-xl p-6 transition-all duration-300 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/10 animate-fade-in"
+      style={{ animationDelay, animationFillMode: 'backwards' }}
+    >
       <div className="flex items-center mb-4">
         <span className="text-primary mr-3">{icon}</span>
         <h3 className="text-xl font-bold text-foreground">{title}</h3>
@@ -151,12 +138,12 @@ const Skills = () => {
       <div className="absolute inset-0 z-0 opacity-30">
         <Canvas camera={{ position: [0, 0, 10] }}>
           <ambientLight intensity={0.5} />
-          <FloatingSkill text="React" position={[-4, 2, -2]} color="#61dafb" />
-          <FloatingSkill text="Docker" position={[4, -1, -1]} color="#2496ed" />
-          <FloatingSkill text="Python" position={[-3, -2, -3]} color="#3776ab" />
-          <FloatingSkill text="AWS" position={[3, 3, -4]} color="#ff9900" />
-          <FloatingSkill text="Jenkins" position={[-5, 1, -2]} color="#d33833" />
-          <FloatingSkill text="K8s" position={[5, -3, -5]} color="#326ce5" />
+          <FloatingSkill position={[-4, 2, -2]} color="#61dafb" />
+          <FloatingSkill position={[4, -1, -1]} color="#2496ed" />
+          <FloatingSkill position={[-3, -2, -3]} color="#818cf8" />
+          <FloatingSkill position={[3, 3, -4]} color="#a855f7" />
+          <FloatingSkill position={[-5, 1, -2]} color="#3b82f6" />
+          <FloatingSkill position={[5, -3, -5]} color="#326ce5" />
         </Canvas>
       </div>
 
@@ -166,7 +153,7 @@ const Skills = () => {
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <SkillCategory key={index} {...category} />
+            <SkillCategory key={index} {...category} animationDelay={`${index * 150}ms`} />
           ))}
         </div>
       </div>
