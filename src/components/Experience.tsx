@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
@@ -60,6 +61,24 @@ const Experience = () => {
   }, [sortedExperiences]);
 
   const [selectedDuration, setSelectedDuration] = useState(uniqueDurations[0]);
+  const [animationClass, setAnimationClass] = useState('animate-fade-in');
+
+  const handleDurationClick = (duration: string) => {
+    const currentIndex = uniqueDurations.indexOf(selectedDuration);
+    const newIndex = uniqueDurations.indexOf(duration);
+
+    if (newIndex === currentIndex) {
+      return;
+    }
+
+    if (newIndex > currentIndex) {
+      setAnimationClass('animate-slide-in-down');
+    } else {
+      setAnimationClass('animate-slide-in-up');
+    }
+
+    setSelectedDuration(duration);
+  };
 
   const filteredExperiences = useMemo(() => {
     return sortedExperiences.filter(exp => exp.duration === selectedDuration);
@@ -78,7 +97,7 @@ const Experience = () => {
             {uniqueDurations.map(duration => (
               <button
                 key={duration}
-                onClick={() => setSelectedDuration(duration)}
+                onClick={() => handleDurationClick(duration)}
                 className={`w-auto text-sm font-bold p-2 px-4 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
                   selectedDuration === duration
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
@@ -94,34 +113,36 @@ const Experience = () => {
           <div className="relative flex-1">
             <div className="absolute left-4 top-2 w-0.5 h-[calc(100%-1rem)] bg-cyan-400/30"></div>
 
-            {filteredExperiences.map((exp, index) => (
-              <div key={index} className="relative pl-16 pb-12">
-                <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
-                    <Briefcase size={14} className="text-cyan-400" />
-                  </div>
-                </div>
-                
-                <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/40 to-blue-500/40 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
-                  <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
-                    <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
-                    <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
-                    <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
-                      <MapPin size={16} className="mr-2" />
-                      <span>{exp.location}</span>
+            <div key={selectedDuration} className={animationClass}>
+              {filteredExperiences.map((exp, index) => (
+                <div key={index} className="relative pl-16 pb-12">
+                  <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
+                    <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
+                      <Briefcase size={14} className="text-cyan-400" />
                     </div>
-                    <ul className="space-y-2">
-                      {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="text-slate-300 text-sm leading-relaxed flex items-start">
-                          <span className="text-cyan-400 mr-2 mt-1 shrink-0">•</span>
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  </div>
+                  
+                  <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/40 to-blue-500/40 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
+                    <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
+                      <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
+                      <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
+                      <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
+                        <MapPin size={16} className="mr-2" />
+                        <span>{exp.location}</span>
+                      </div>
+                      <ul className="space-y-2">
+                        {exp.achievements.map((achievement, i) => (
+                          <li key={i} className="text-slate-300 text-sm leading-relaxed flex items-start">
+                            <span className="text-cyan-400 mr-2 mt-1 shrink-0">•</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
