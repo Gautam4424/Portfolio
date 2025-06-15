@@ -18,8 +18,8 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-foreground max-w-2xl mx-auto -mt-72 bg-black/30 backdrop-blur-sm p-8 rounded-2xl">
-        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
+      <div className="relative z-10 text-center text-foreground max-w-2xl mx-auto -mt-72 p-8 rounded-2xl">
+        <h1 className="text-5xl md:text-7xl font-bold animate-fade-in drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
         <p className="text-xl md:text-2xl mt-4 text-muted-foreground animate-fade-in animation-delay-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
