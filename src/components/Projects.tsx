@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ExternalLink, Github, ServerCog, Workflow, CloudCog, Code2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -87,7 +86,7 @@ const Projects = () => {
       icon: <ServerCog size={24} />,
       links: {
         github: "https://github.com/Gautam4424",
-        live: "#"
+        live: "https://www.vizo361.ai"
       }
     },
     {
@@ -103,11 +102,11 @@ const Projects = () => {
       icon: <Workflow size={24} />,
       links: {
         github: "https://github.com/Gautam4424",
-        live: "#"
+        live: "https://www.maximpro.ai"
       }
     },
     {
-      title: "HireLinode - Cloud Infrastructure Management",
+      title: "hireii.com - Cloud Infrastructure Management",
       description: "Cloud-native deployment platform with automated scaling, cost optimization, and comprehensive infrastructure monitoring for enterprise applications.",
       technologies: ["Linode", "Docker", "Kubernetes", "Azure", "Git", "Helm", "Terraform"],
       achievements: [
@@ -119,7 +118,7 @@ const Projects = () => {
       icon: <CloudCog size={24} />,
       links: {
         github: "https://github.com/Gautam4424",
-        live: "#"
+        live: "https://hireii.com/"
       }
     },
     {
@@ -135,7 +134,7 @@ const Projects = () => {
       icon: <Code2 size={24} />,
       links: {
         github: "https://github.com/Gautam4424",
-        live: "#"
+        live: "https://techgs.tech/"
       }
     }
   ];
