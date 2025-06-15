@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -125,7 +124,7 @@ const Skills = () => {
       skills: [
         { name: "MySQL", icon: <Database size={16} /> },
         { name: "MongoDB", icon: <Database size={16} /> },
-        { name: "Elastic Search", icon: <DatabaseSearch size={16} /> }
+        { name: "Elastic Search", icon: <Search size={16} /> }
       ]
     },
     {
