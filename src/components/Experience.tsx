@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
 const Experience = () => {
@@ -62,6 +62,15 @@ const Experience = () => {
   const [selectedDuration, setSelectedDuration] = useState(uniqueDurations[0]);
   const [animationClass, setAnimationClass] = useState('animate-fade-in');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setContainerHeight] = useState<number | 'auto'>('auto');
+
+  useLayoutEffect(() => {
+    if (containerRef.current) {
+      setContainerHeight(containerRef.current.offsetHeight);
+    }
+  }, [selectedDuration]);
 
   const handleDurationClick = (duration: string) => {
     if (isTransitioning || duration === selectedDuration) {
@@ -119,10 +128,10 @@ const Experience = () => {
           </div>
 
           {/* Timeline */}
-          <div className="relative flex-1">
-            <div className="absolute left-4 top-2 w-0.5 h-[calc(100%-1rem)] bg-cyan-400/30"></div>
+          <div className="relative flex-1" style={{ height: containerHeight, transition: 'height 0.5s ease-in-out' }}>
+            <div className="absolute left-4 top-2 w-0.5 h-full bg-cyan-400/30"></div>
 
-            <div key={selectedDuration} className={animationClass}>
+            <div ref={containerRef} key={selectedDuration} className={animationClass}>
               {filteredExperiences.map((exp, index) => (
                 <div key={index} className="relative pl-16 pb-12">
                   <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
