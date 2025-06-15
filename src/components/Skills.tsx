@@ -61,7 +61,7 @@ const SkillCategory = ({
         {skills.map((skill, index) => (
           <div
             key={index} 
-            className="flex items-center gap-2 bg-secondary/70 backdrop-blur-sm px-4 py-2 rounded-lg border border-border/50 hover:bg-secondary transition-all duration-200"
+            className="flex items-center gap-2 bg-cyan-400/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-cyan-400/30 hover:bg-cyan-400/20 transition-all duration-200"
           >
             <span className="text-primary">{skill.icon}</span>
             <span className="text-foreground text-sm font-medium">{skill.name}</span>
