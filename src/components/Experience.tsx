@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 
 const ExperienceCard = ({ 
@@ -72,6 +72,32 @@ const Experience = () => {
     }
   ];
 
+  const experiencesByYear = useMemo(() => {
+    const grouped: Record<string, typeof experiences> = {};
+    experiences.forEach(exp => {
+      const yearMatch = exp.duration.match(/\d{4}/);
+      if (yearMatch) {
+        const year = yearMatch[0];
+        if (!grouped[year]) {
+          grouped[year] = [];
+        }
+        grouped[year].push(exp);
+      }
+    });
+    return grouped;
+  }, []);
+
+  const years = useMemo(() => 
+    Object.keys(experiencesByYear).sort((a, b) => Number(b) - Number(a)),
+    [experiencesByYear]
+  );
+
+  const [activeYear, setActiveYear] = useState<string | null>(years[0] || null);
+
+  const getGlobalIndex = (expToFind: typeof experiences[0]) => {
+    return experiences.findIndex(exp => exp.title === expToFind.title && exp.company === expToFind.company);
+  };
+
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -83,20 +109,44 @@ const Experience = () => {
           {/* Vertical Line */}
           <div className="absolute h-full w-1 bg-cyan-400/20 left-4 md:left-1/2 transform md:-translate-x-1/2"></div>
           
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative pl-12 md:pl-0">
-                {/* Timeline Dot */}
-                <div className="absolute top-2 left-4 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 border-4 border-slate-900"></div>
-                
-                <div className={`md:flex ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} items-start`}>
-                  <div className="md:w-1/2">
-                    <div className={`${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                      <ExperienceCard {...exp} />
-                    </div>
+          <div className="space-y-8">
+            {years.map((year, yearIndex) => (
+              <div key={year} className="relative pl-12 md:pl-0">
+                {/* Year Marker on Timeline */}
+                <div className="absolute top-1 left-4 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 border-4 border-slate-900 z-10"></div>
+                <div className={`md:flex items-center ${activeYear === year ? 'mb-8' : ''}`}>
+                  <div className={`w-full md:w-1/2 ${yearIndex % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left md:ml-auto'}`}>
+                      <button 
+                          onClick={() => setActiveYear(prev => prev === year ? null : year)}
+                          className="text-2xl font-bold text-white p-2 bg-transparent border-none cursor-pointer hover:text-cyan-400 transition-colors w-full text-left md:text-inherit"
+                      >
+                          {year}
+                      </button>
                   </div>
-                  <div className="md:w-1/2"></div> {/* Spacer */}
+                  <div className="hidden md:block md:w-1/2"></div>
                 </div>
+
+                {activeYear === year && (
+                    <div className="animate-fade-in space-y-12">
+                        {experiencesByYear[year].map((exp, index) => {
+                            const globalIndex = getGlobalIndex(exp);
+                            return (
+                                <div key={index} className="relative">
+                                    {/* Small dot for experience */}
+                                    <div className="absolute top-2 left-[-32px] md:left-1/2 w-3 h-3 bg-slate-500 rounded-full transform -translate-x-1/2 border-2 border-slate-900"></div>
+                                    <div className={`md:flex ${globalIndex % 2 !== 0 ? 'md:flex-row-reverse' : ''} items-start`}>
+                                        <div className="md:w-1/2">
+                                            <div className={`${globalIndex % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+                                                <ExperienceCard {...exp} />
+                                            </div>
+                                        </div>
+                                        <div className="md:w-1/2"></div> {/* Spacer */}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
               </div>
             ))}
           </div>
