@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -90,7 +91,7 @@ const Skills = () => {
   ];
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden">
+    <section id="skills" className="py-20 px-6 relative overflow-hidden">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0 opacity-30">
         <Canvas camera={{ position: [0, 0, 10] }}>

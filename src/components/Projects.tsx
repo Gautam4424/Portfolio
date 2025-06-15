@@ -106,7 +106,7 @@ const Projects = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-black/20">
+    <section id="projects" className="py-20 px-6 bg-black/20">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
           DevOps & Engineering <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Projects</span>
