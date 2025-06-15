@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -59,7 +58,7 @@ const Hero = () => {
       </div>
 
       {/* Content - moved up by 50px using negative margin */}
-      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto pb-60 -mt-12">
+      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto pb-60 -mt-24">
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
