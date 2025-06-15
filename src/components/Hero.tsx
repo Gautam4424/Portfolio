@@ -1,94 +1,62 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-const AnimatedSphere = ({ position }: { position: [number, number, number] }) => {
-  const meshRef = useRef<Mesh>(null);
+const AnimatedWavyPlane = () => {
+  const meshRef = useRef<Mesh>(null!);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   
-  useFrame((state) => {
+  useFrame(({ clock }) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime) * 0.2;
+      const time = clock.elapsedTime;
+      const positions = meshRef.current.geometry.attributes.position;
+      
+      // Store original positions on the geometry's user data if not already present
+      if (!meshRef.current.geometry.userData.originalPosition) {
+        meshRef.current.geometry.userData.originalPosition = positions.clone();
+      }
+      
+      const originalPosition = meshRef.current.geometry.userData.originalPosition;
+
+      for (let i = 0; i < positions.count; i++) {
+        const x = originalPosition.getX(i);
+        const y = originalPosition.getY(i);
+        const z = (Math.sin(x * 0.2 + time * 0.5) + Math.cos(y * 0.2 + time * 0.5)) * 0.5;
+        positions.setZ(i, z);
+      }
+      positions.needsUpdate = true;
+      meshRef.current.geometry.computeVertexNormals();
     }
   });
 
   if (!mounted) return null;
 
   return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#3b82f6' : '#60a5fa'} wireframe />
+    <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, 0]}>
+      <planeGeometry args={[30, 30, 70, 70]} />
+      <meshStandardMaterial
+        color={resolvedTheme === 'dark' ? '#ffffff' : '#0a0a0a'}
+        wireframe
+      />
     </mesh>
   );
 };
 
-const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
-  const meshRef = useRef<Mesh>(null);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.4;
-      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime) * 0.3;
-    }
-  });
-
-  if (!mounted) return null;
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <boxGeometry args={[0.8, 0.8, 0.8]} />
-      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#06b6d4' : '#22d3ee'} wireframe />
-    </mesh>
-  );
-};
-
-const AnimatedTorus = ({ position }: { position: [number, number, number] }) => {
-  const meshRef = useRef<Mesh>(null);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.z = state.clock.elapsedTime * 0.4;
-      meshRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
-    }
-  });
-
-  if (!mounted) return null;
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <torusGeometry args={[0.6, 0.2, 16, 32]} />
-      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#8b5cf6' : '#a78bfa'} wireframe />
-    </mesh>
-  );
-};
 
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5] }}>
+        <Canvas camera={{ position: [0, 5, 10], fov: 75 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <AnimatedSphere position={[-3, 2, -2]} />
-          <AnimatedBox position={[3, -1, -1]} />
-          <AnimatedTorus position={[-2, -2, -3]} />
-          <AnimatedSphere position={[4, 3, -4]} />
-          <AnimatedBox position={[-4, 1, -2]} />
+          <AnimatedWavyPlane />
         </Canvas>
       </div>
 
