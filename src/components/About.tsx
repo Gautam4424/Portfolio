@@ -5,32 +5,32 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const aboutPoints = [
   {
-    icon: <Rocket className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Rocket className="h-8 w-8 text-primary shrink-0" />,
     title: "DevOps & MLOps Specialist",
     description: "Architecting and implementing robust, scalable, and automated solutions at the intersection of software development, IT operations, and machine learning."
   },
   {
-    icon: <Cloud className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Cloud className="h-8 w-8 text-primary shrink-0" />,
     title: "Cloud Infrastructure Expert",
     description: "Building resilient cloud infrastructure on platforms like AWS, Linode, and Azure, leveraging Infrastructure as Code with tools like Terraform for consistency and manageability."
   },
   {
-    icon: <Cog className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Cog className="h-8 w-8 text-primary shrink-0" />,
     title: "CI/CD & Automation",
     description: "Designing and maintaining comprehensive CI/CD pipelines using Jenkins and Docker, enabling zero-downtime deployments and accelerating the software delivery lifecycle."
   },
   {
-    icon: <Wrench className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Wrench className="h-8 w-8 text-primary shrink-0" />,
     title: "Advanced Deployment Strategies",
     description: "Skilled in implementing advanced deployment strategies like Blue-Green deployments to minimize risk and ensure seamless application updates."
   },
   {
-    icon: <Layers className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Layers className="h-8 w-8 text-primary shrink-0" />,
     title: "SaaS Architecture Design",
     description: "Experienced in designing secure multi-tenant and isolated single-tenant architectures for SaaS applications, prioritizing security, scalability, and performance."
   },
   {
-    icon: <Shield className="h-8 w-8 text-cyan-400 shrink-0" />,
+    icon: <Shield className="h-8 w-8 text-primary shrink-0" />,
     title: "Security Focused",
     description: "Bridging the gap between technical domains to ensure development and operations are seamlessly and securely integrated, with a constant focus on best practices."
   }
@@ -45,7 +45,7 @@ const About = () => {
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {aboutPoints.map((point, index) => (
-            <Card key={index} className="bg-card/80 dark:bg-card/5 backdrop-blur-sm border-border text-muted-foreground hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300 transform hover:-translate-y-2">
+            <Card key={index} className="bg-card/80 dark:bg-card/50 backdrop-blur-sm border-border text-muted-foreground hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="flex flex-row items-center gap-4 pb-4">
                 {point.icon}
                 <CardTitle className="text-xl text-foreground">{point.title}</CardTitle>

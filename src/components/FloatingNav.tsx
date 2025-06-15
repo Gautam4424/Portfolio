@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -67,9 +66,9 @@ const FloatingNav = () => {
       style={{ top: `${position.y}px`, left: `${position.x}px` }}
       className="fixed z-50"
     >
-      <div className="group bg-slate-900/80 backdrop-blur-md p-3 rounded-full flex flex-col items-center gap-4 shadow-2xl shadow-cyan-500/10 border border-slate-700">
+      <div className="group bg-card/80 backdrop-blur-md p-3 rounded-full flex flex-col items-center gap-4 shadow-2xl shadow-primary/10 border border-border">
         <div 
-          className="cursor-grabbing text-slate-400 hover:text-white transition-colors"
+          className="cursor-grabbing text-muted-foreground hover:text-foreground transition-colors"
           onMouseDown={handleMouseDown}
         >
           <Move size={20} />
@@ -79,12 +78,12 @@ const FloatingNav = () => {
             <TooltipTrigger asChild>
               <a
                 href={link.href}
-                className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 p-2 rounded-full hover:bg-slate-800"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 p-2 rounded-full hover:bg-accent"
               >
                 <link.icon size={24} />
               </a>
             </TooltipTrigger>
-            <TooltipContent side="left" className="bg-slate-800 text-white border-slate-700">
+            <TooltipContent side="left">
               <p>{link.name}</p>
             </TooltipContent>
           </Tooltip>

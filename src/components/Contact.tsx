@@ -15,30 +15,30 @@ const Contact = () => {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-card/80 dark:bg-card/5 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300">
-            <Mail className="mx-auto mb-4 text-cyan-400" size={32} />
+          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+            <Mail className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
             <a 
               href="mailto:gautamsachdeva156@gmail.com"
-              className="text-muted-foreground hover:text-cyan-400 transition-colors text-sm"
+              className="text-muted-foreground hover:text-primary transition-colors text-sm"
             >
               gautamsachdeva156@gmail.com
             </a>
           </div>
 
-          <div className="bg-card/80 dark:bg-card/5 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300">
-            <Phone className="mx-auto mb-4 text-cyan-400" size={32} />
+          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+            <Phone className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
             <a 
               href="tel:+916284217423"
-              className="text-muted-foreground hover:text-cyan-400 transition-colors text-sm"
+              className="text-muted-foreground hover:text-primary transition-colors text-sm"
             >
               +91 628 421 7423
             </a>
           </div>
 
-          <div className="bg-card/80 dark:bg-card/5 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300">
-            <MapPin className="mx-auto mb-4 text-cyan-400" size={32} />
+          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+            <MapPin className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
             <span className="text-muted-foreground text-sm">Zirakpur, India</span>
           </div>
@@ -51,7 +51,7 @@ const Contact = () => {
             rel="noopener noreferrer"
             className="p-4 bg-secondary/50 backdrop-blur-sm rounded-full hover:bg-secondary transition-all duration-300 hover:scale-110 group"
           >
-            <Github size={24} className="text-foreground group-hover:text-cyan-400 transition-colors" />
+            <Github size={24} className="text-foreground group-hover:text-primary transition-colors" />
           </a>
           <a 
             href="https://linkedin.com/in/gautam-sachdeva-0ba4a216/"
@@ -59,7 +59,7 @@ const Contact = () => {
             rel="noopener noreferrer"
             className="p-4 bg-secondary/50 backdrop-blur-sm rounded-full hover:bg-secondary transition-all duration-300 hover:scale-110 group"
           >
-            <Linkedin size={24} className="text-foreground group-hover:text-cyan-400 transition-colors" />
+            <Linkedin size={24} className="text-foreground group-hover:text-primary transition-colors" />
           </a>
         </div>
 

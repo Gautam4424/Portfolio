@@ -11,7 +11,7 @@ import { ModeToggle } from '../components/ThemeToggle';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-foreground dark:bg-gradient-to-br dark:from-slate-900 dark:via-blue-900 dark:to-slate-800">
       <div className="fixed top-4 right-4 z-50">
         <ModeToggle />
       </div>

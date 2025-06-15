@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -39,16 +38,16 @@ const SkillCategory = ({
   skills: string[]; 
   icon: React.ReactNode;
 }) => (
-  <div className="bg-card/80 dark:bg-card/5 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300">
+  <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
     <div className="flex items-center mb-4">
-      <span className="text-cyan-400 mr-3">{icon}</span>
+      <span className="text-primary mr-3">{icon}</span>
       <h3 className="text-xl font-bold text-foreground">{title}</h3>
     </div>
     <div className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
         <span 
           key={index} 
-          className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-cyan-300 rounded-full text-sm font-medium border border-cyan-500/30 hover:border-cyan-400/50 transition-colors"
+          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
         >
           {skill}
         </span>

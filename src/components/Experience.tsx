@@ -105,7 +105,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-20">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-20">
           Professional <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
         </h2>
 
@@ -119,7 +119,7 @@ const Experience = () => {
                 className={`w-auto text-sm font-bold p-2 px-4 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
                   selectedDuration === duration
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                    : 'text-slate-400 bg-slate-800/50 border border-slate-700 hover:text-white hover:border-cyan-400'
+                    : 'text-muted-foreground bg-card border border-border hover:text-foreground hover:border-primary'
                 }`}
               >
                 {duration}
@@ -129,29 +129,29 @@ const Experience = () => {
 
           {/* Timeline */}
           <div className="relative flex-1" style={{ height: containerHeight, transition: 'height 0.5s ease-in-out' }}>
-            <div className="absolute left-4 top-2 w-0.5 h-full bg-cyan-400/30"></div>
+            <div className="absolute left-4 top-2 w-0.5 h-full bg-primary/30"></div>
 
             <div ref={containerRef} key={selectedDuration} className={animationClass}>
               {filteredExperiences.map((exp, index) => (
                 <div key={index} className="relative pl-16 pb-12">
                   <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
-                    <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
-                      <Briefcase size={14} className="text-cyan-400" />
+                    <div className="bg-background border-4 border-primary rounded-full h-8 w-8 z-10 flex items-center justify-center">
+                      <Briefcase size={14} className="text-primary" />
                     </div>
                   </div>
                   
-                  <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/40 to-blue-500/40 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
-                    <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
-                      <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
-                      <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
-                      <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
+                  <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300">
+                    <div className="bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
+                      <h3 className="text-xl font-bold text-foreground mb-1">{exp.title}</h3>
+                      <h4 className="text-lg text-primary font-semibold">{exp.company}</h4>
+                      <div className="flex items-center text-muted-foreground text-sm mt-1 mb-4">
                         <MapPin size={16} className="mr-2" />
                         <span>{exp.location}</span>
                       </div>
                       <ul className="space-y-2">
                         {exp.achievements.map((achievement, i) => (
-                          <li key={i} className="text-slate-300 text-sm leading-relaxed flex items-start">
-                            <span className="text-cyan-400 mr-2 mt-1 shrink-0">•</span>
+                          <li key={i} className="text-muted-foreground text-sm leading-relaxed flex items-start">
+                            <span className="text-primary mr-2 mt-1 shrink-0">•</span>
                             <span>{achievement}</span>
                           </li>
                         ))}
