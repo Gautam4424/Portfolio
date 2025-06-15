@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -6,13 +5,9 @@ import { useTheme } from 'next-themes';
 const Contact = () => {
   const { resolvedTheme } = useTheme();
   
-  const cardOuterClass = resolvedTheme === 'dark' 
-    ? "rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300"
-    : "rounded-xl border border-border transition-all duration-300";
-
-  const cardInnerClass = resolvedTheme === 'dark'
-    ? "bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full"
-    : "bg-card rounded-[10.5px] p-6 h-full";
+  const cardClass = resolvedTheme === 'dark'
+    ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
+    : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300";
 
   return (
     <section id="contact" className="py-20 px-6">
@@ -26,38 +21,32 @@ const Contact = () => {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className={cardOuterClass}>
-            <div className={cardInnerClass}>
-              <Mail className="mx-auto mb-4 text-primary" size={32} />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
-              <a 
-                href="mailto:gautamsachdeva156@gmail.com"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
-              >
-                gautamsachdeva156@gmail.com
-              </a>
-            </div>
+          <div className={cardClass}>
+            <Mail className="mx-auto mb-4 text-primary" size={32} />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
+            <a 
+              href="mailto:gautamsachdeva156@gmail.com"
+              className="text-muted-foreground hover:text-primary transition-colors text-sm"
+            >
+              gautamsachdeva156@gmail.com
+            </a>
           </div>
 
-          <div className={cardOuterClass}>
-            <div className={cardInnerClass}>
-              <Phone className="mx-auto mb-4 text-primary" size={32} />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
-              <a 
-                href="tel:+916284217423"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
-              >
-                +91 628 421 7423
-              </a>
-            </div>
+          <div className={cardClass}>
+            <Phone className="mx-auto mb-4 text-primary" size={32} />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
+            <a 
+              href="tel:+916284217423"
+              className="text-muted-foreground hover:text-primary transition-colors text-sm"
+            >
+              +91 628 421 7423
+            </a>
           </div>
 
-          <div className={cardOuterClass}>
-            <div className={cardInnerClass}>
-              <MapPin className="mx-auto mb-4 text-primary" size={32} />
-              <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
-              <span className="text-muted-foreground text-sm">Zirakpur, India</span>
-            </div>
+          <div className={cardClass}>
+            <MapPin className="mx-auto mb-4 text-primary" size={32} />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
+            <span className="text-muted-foreground text-sm">Zirakpur, India</span>
           </div>
         </div>
 
