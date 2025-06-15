@@ -1,4 +1,5 @@
 
+```tsx
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -25,7 +26,7 @@ const AnimatedWavyPlane = () => {
       for (let i = 0; i < positions.count; i++) {
         const x = originalPosition.getX(i);
         const y = originalPosition.getY(i);
-        const z = (Math.sin(x * 0.2 + time * 0.5) + Math.cos(y * 0.2 + time * 0.5)) * 0.5;
+        const z = (Math.sin(x * 0.2 + time * 0.3) + Math.cos(y * 0.2 + time * 0.3)) * 1;
         positions.setZ(i, z);
       }
       positions.needsUpdate = true;
@@ -37,7 +38,7 @@ const AnimatedWavyPlane = () => {
 
   return (
     <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, -5]}>
-      <planeGeometry args={[30, 30, 70, 70]} />
+      <planeGeometry args={[50, 30, 70, 70]} />
       <meshStandardMaterial
         color={resolvedTheme === 'dark' ? '#ffffff' : '#3b82f6'}
         wireframe
@@ -60,7 +61,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto pb-80">
+      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto pb-60">
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
@@ -73,3 +74,4 @@ const Hero = () => {
 };
 
 export default Hero;
+```
