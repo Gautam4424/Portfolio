@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -105,13 +104,9 @@ const Experience = () => {
     return sortedExperiences.filter(exp => exp.duration === selectedDuration);
   }, [selectedDuration, sortedExperiences]);
 
-  const cardOuterClass = resolvedTheme === 'dark' 
-    ? "rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300"
-    : "rounded-xl border border-border transition-all duration-300";
-
-  const cardInnerClass = resolvedTheme === 'dark'
-    ? "bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full"
-    : "bg-card rounded-[10.5px] p-6 h-full";
+  const experienceCardClass = resolvedTheme === 'dark'
+    ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300 h-full"
+    : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300 h-full";
 
   return (
     <section id="experience" className="py-20 px-6">
@@ -151,23 +146,21 @@ const Experience = () => {
                     </div>
                   </div>
                   
-                  <div className={cardOuterClass}>
-                    <div className={cardInnerClass}>
-                      <h3 className="text-xl font-bold text-foreground mb-1">{exp.title}</h3>
-                      <h4 className="text-lg text-primary font-semibold">{exp.company}</h4>
-                      <div className="flex items-center text-muted-foreground text-sm mt-1 mb-4">
-                        <MapPin size={16} className="mr-2" />
-                        <span>{exp.location}</span>
-                      </div>
-                      <ul className="space-y-2">
-                        {exp.achievements.map((achievement, i) => (
-                          <li key={i} className="text-muted-foreground text-sm leading-relaxed flex items-start">
-                            <span className="text-primary mr-2 mt-1 shrink-0">•</span>
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  <div className={experienceCardClass}>
+                    <h3 className="text-xl font-bold text-foreground mb-1">{exp.title}</h3>
+                    <h4 className="text-lg text-primary font-semibold">{exp.company}</h4>
+                    <div className="flex items-center text-muted-foreground text-sm mt-1 mb-4">
+                      <MapPin size={16} className="mr-2" />
+                      <span>{exp.location}</span>
                     </div>
+                    <ul className="space-y-2">
+                      {exp.achievements.map((achievement, i) => (
+                        <li key={i} className="text-muted-foreground text-sm leading-relaxed flex items-start">
+                          <span className="text-primary mr-2 mt-1 shrink-0">•</span>
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
