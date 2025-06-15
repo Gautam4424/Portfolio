@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { 
   Code, Globe, Cloud, Database, Server, TerminalSquare,
-  Braces, FileCode2, Paintbrush, Atom, Container, Wrench, Search, Workflow, CloudCog, DatabaseSearch, Monitor, Terminal 
+  Braces, FileCode2, Paintbrush, Atom, Container, Wrench, Search, Workflow, CloudCog, Monitor, Terminal 
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
