@@ -14,7 +14,9 @@ const Index = () => {
       <FloatingNav />
       <Hero />
       <About />
-      <Experience />
+      <div className="min-h-screen flex items-center justify-center">
+        <Experience />
+      </div>
       <Projects />
       <Skills />
       <Contact />
