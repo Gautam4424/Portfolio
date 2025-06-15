@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -78,10 +79,10 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent animate-fade-in">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
-        <p className="text-xl md:text-2xl mb-8 text-slate-300 animate-fade-in animation-delay-200">
+        <p className="text-xl md:text-2xl mb-8 text-slate-300 animate-fade-in animation-delay-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
           DevOps & MLOps Engineer
         </p>
         <p className="text-lg mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
