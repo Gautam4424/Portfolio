@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 
@@ -59,7 +58,7 @@ const Experience = () => {
     },
     {
       title: "Associate Software Engineer",
-      company: "Proeffico",
+      company: "Proeffico Solutions Pvt Ltd",
       location: "Noida",
       duration: "Jan 2025 – present",
       achievements: [

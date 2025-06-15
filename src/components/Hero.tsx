@@ -85,7 +85,7 @@ const Hero = () => {
           DevOps & MLOps Engineer
         </p>
         <p className="text-lg mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
-          A dedicated DevOps & MLOps Engineer with 1.5 years of hands-on experience in automating and optimizing mission-critical deployments. Passionate about architecting scalable cloud infrastructure, building robust CI/CD pipelines, and integrating machine learning workflows.
+          A results-driven engineer passionate about architecting resilient, scalable cloud infrastructure and automating the full software lifecycle. Proven track record in building robust CI/CD pipelines and optimizing mission-critical deployments, bridging the gap between development, operations, and machine learning.
         </p>
         
         {/* Social Links */}
