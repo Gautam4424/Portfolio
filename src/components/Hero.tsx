@@ -1,78 +1,89 @@
-import React, { useRef } from 'react';
+
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { Github, Linkedin, Mail } from 'lucide-react';
 
-const AnimatedSphere = ({ position }: { position: [number, number, number] }) => {
+const AnimatedSphere = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime) * 0.2;
+      const speed = isHovered ? 2 : 1;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.5 * speed;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3 * speed;
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.2;
     }
   });
 
   return (
     <mesh ref={meshRef} position={position}>
       <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial color="#3b82f6" wireframe />
+      <meshStandardMaterial color="#3b82f6" wireframe={!isHovered} />
     </mesh>
   );
 };
 
-const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
+const AnimatedBox = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.4;
-      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime) * 0.3;
+      const speed = isHovered ? 2 : 1;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3 * speed;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.4 * speed;
+      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime * speed) * 0.3;
     }
   });
 
   return (
     <mesh ref={meshRef} position={position}>
       <boxGeometry args={[0.8, 0.8, 0.8]} />
-      <meshStandardMaterial color="#06b6d4" wireframe />
+      <meshStandardMaterial color="#06b6d4" wireframe={!isHovered} />
     </mesh>
   );
 };
 
-const AnimatedTorus = ({ position }: { position: [number, number, number] }) => {
+const AnimatedTorus = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.z = state.clock.elapsedTime * 0.4;
-      meshRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
+      const speed = isHovered ? 2 : 1;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2 * speed;
+      meshRef.current.rotation.z = state.clock.elapsedTime * 0.4 * speed;
+      meshRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5 * speed) * 0.5;
     }
   });
 
   return (
     <mesh ref={meshRef} position={position}>
       <torusGeometry args={[0.6, 0.2, 16, 32]} />
-      <meshStandardMaterial color="#8b5cf6" wireframe />
+      <meshStandardMaterial color="#8b5cf6" wireframe={!isHovered} />
     </mesh>
   );
 };
 
 const Hero = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section 
+      id="home" 
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 5] }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <AnimatedSphere position={[-3, 2, -2]} />
-          <AnimatedBox position={[3, -1, -1]} />
-          <AnimatedTorus position={[-2, -2, -3]} />
-          <AnimatedSphere position={[4, 3, -4]} />
-          <AnimatedBox position={[-4, 1, -2]} />
+          <AnimatedSphere position={[-3, 2, -2]} isHovered={isHovered} />
+          <AnimatedBox position={[3, -1, -1]} isHovered={isHovered} />
+          <AnimatedTorus position={[-2, -2, -3]} isHovered={isHovered} />
+          <AnimatedSphere position={[4, 3, -4]} isHovered={isHovered} />
+          <AnimatedBox position={[-4, 1, -2]} isHovered={isHovered} />
         </Canvas>
       </div>
 
