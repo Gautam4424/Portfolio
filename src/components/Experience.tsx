@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
@@ -55,16 +56,15 @@ const Experience = () => {
     return getMonth(b.duration) - getMonth(a.duration);
   });
 
-  const uniqueYears = useMemo(() => {
-    const years = new Set(experiences.map(exp => getYear(exp.duration)));
-    return Array.from(years).sort((a, b) => b - a);
-  }, [experiences]);
+  const uniqueDurations = useMemo(() => {
+    return Array.from(new Set(sortedExperiences.map(exp => exp.duration)));
+  }, [sortedExperiences]);
 
-  const [selectedYear, setSelectedYear] = useState(uniqueYears[0]);
+  const [selectedDuration, setSelectedDuration] = useState(uniqueDurations[0]);
 
   const filteredExperiences = useMemo(() => {
-    return sortedExperiences.filter(exp => getYear(exp.duration) === selectedYear);
-  }, [selectedYear, sortedExperiences]);
+    return sortedExperiences.filter(exp => exp.duration === selectedDuration);
+  }, [selectedDuration, sortedExperiences]);
 
   return (
     <section id="experience" className="py-20 px-6">
@@ -74,19 +74,19 @@ const Experience = () => {
         </h2>
 
         <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-          {/* Year Selector */}
+          {/* Duration Selector */}
           <div className="flex flex-row md:flex-col gap-4 justify-center md:justify-start flex-wrap">
-            {uniqueYears.map(year => (
+            {uniqueDurations.map(duration => (
               <button
-                key={year}
-                onClick={() => setSelectedYear(year)}
-                className={`w-24 text-lg font-bold p-2 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
-                  selectedYear === year
+                key={duration}
+                onClick={() => setSelectedDuration(duration)}
+                className={`w-auto text-sm font-bold p-2 px-4 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                  selectedDuration === duration
                     ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
                     : 'text-slate-400 bg-slate-800/50 border border-slate-700 hover:text-white hover:border-cyan-400'
                 }`}
               >
-                {year}
+                {duration}
               </button>
             ))}
           </div>
