@@ -1,18 +1,28 @@
-
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
+import { Mesh, MathUtils } from 'three';
 import { Github, Linkedin, Mail } from 'lucide-react';
+
+const CameraController = ({ isHovered }: { isHovered: boolean }) => {
+  useFrame((state, delta) => {
+    const targetZ = isHovered ? 4.5 : 5;
+    state.camera.position.z = MathUtils.damp(state.camera.position.z, targetZ, 4, delta);
+  });
+  return null;
+};
 
 const AnimatedSphere = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
-  
-  useFrame((state) => {
+  const speed = useRef(1);
+
+  useFrame((state, delta) => {
     if (meshRef.current) {
-      const speed = isHovered ? 2 : 1;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.5 * speed;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3 * speed;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.2;
+      const targetSpeed = isHovered ? 2.5 : 1;
+      speed.current = MathUtils.damp(speed.current, targetSpeed, 4, delta);
+      
+      meshRef.current.rotation.x += 0.005 * speed.current;
+      meshRef.current.rotation.y += 0.003 * speed.current;
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed.current) * 0.2;
     }
   });
 
@@ -26,13 +36,16 @@ const AnimatedSphere = ({ position, isHovered }: { position: [number, number, nu
 
 const AnimatedBox = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
-  
-  useFrame((state) => {
+  const speed = useRef(1);
+
+  useFrame((state, delta) => {
     if (meshRef.current) {
-      const speed = isHovered ? 2 : 1;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3 * speed;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.4 * speed;
-      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime * speed) * 0.3;
+      const targetSpeed = isHovered ? 2.5 : 1;
+      speed.current = MathUtils.damp(speed.current, targetSpeed, 4, delta);
+      
+      meshRef.current.rotation.x += 0.003 * speed.current;
+      meshRef.current.rotation.y += 0.004 * speed.current;
+      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime * speed.current) * 0.3;
     }
   });
 
@@ -46,13 +59,16 @@ const AnimatedBox = ({ position, isHovered }: { position: [number, number, numbe
 
 const AnimatedTorus = ({ position, isHovered }: { position: [number, number, number]; isHovered: boolean }) => {
   const meshRef = useRef<Mesh>(null);
-  
-  useFrame((state) => {
+  const speed = useRef(1);
+
+  useFrame((state, delta) => {
     if (meshRef.current) {
-      const speed = isHovered ? 2 : 1;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2 * speed;
-      meshRef.current.rotation.z = state.clock.elapsedTime * 0.4 * speed;
-      meshRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5 * speed) * 0.5;
+      const targetSpeed = isHovered ? 2.5 : 1;
+      speed.current = MathUtils.damp(speed.current, targetSpeed, 4, delta);
+      
+      meshRef.current.rotation.x += 0.002 * speed.current;
+      meshRef.current.rotation.z += 0.004 * speed.current;
+      meshRef.current.position.z = position[2] + Math.sin(state.clock.elapsedTime * 0.5 * speed.current) * 0.5;
     }
   });
 
@@ -77,6 +93,7 @@ const Hero = () => {
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 5] }}>
+          <CameraController isHovered={isHovered} />
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <AnimatedSphere position={[-3, 2, -2]} isHovered={isHovered} />
