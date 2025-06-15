@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
@@ -72,22 +71,24 @@ const Experience = () => {
             <div key={index} className="relative pl-12 md:pl-0 mb-16">
               <div className={`flex flex-col md:flex-row items-start ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                 
-                {/* Content Card */}
-                <div className="w-full md:w-[calc(50%-40px)] bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                  <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
-                  <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
-                  <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
-                    <MapPin size={16} className="mr-2" />
-                    <span>{exp.location}</span>
+                {/* Content Card with gradient border */}
+                <div className="w-full md:w-[calc(50%-40px)] rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/60 to-blue-500/60 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
+                  <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
+                    <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
+                    <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
+                    <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
+                      <MapPin size={16} className="mr-2" />
+                      <span>{exp.location}</span>
+                    </div>
+                    <ul className="space-y-2">
+                      {exp.achievements.map((achievement, i) => (
+                        <li key={i} className="text-slate-300 text-sm leading-relaxed flex items-start">
+                          <span className="text-cyan-400 mr-2 mt-1 shrink-0">•</span>
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-2">
-                    {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="text-slate-300 text-sm leading-relaxed flex items-start">
-                        <span className="text-cyan-400 mr-2 mt-1 shrink-0">•</span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
                 {/* Desktop Spacer */}
@@ -96,7 +97,9 @@ const Experience = () => {
 
               {/* Timeline Dot and Date */}
               <div className="absolute top-0 left-4 md:left-1/2 w-full transform -translate-x-1/2 flex items-center md:flex-col">
-                <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10"></div>
+                <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
+                   <Briefcase size={14} className="text-cyan-400" />
+                </div>
                  <div className={`text-sm font-semibold text-cyan-400 bg-slate-800/50 backdrop-blur-sm px-3 py-1 rounded-full whitespace-nowrap ml-4 md:ml-0 md:mt-4
                   ${index % 2 !== 0 ? 'md:mr-[calc(100%+60px)]' : 'md:ml-[calc(100%+60px)]' }`}>
                   <div className="flex items-center">
