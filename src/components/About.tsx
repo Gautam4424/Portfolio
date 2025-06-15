@@ -40,18 +40,18 @@ const About = () => {
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16">
           About <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Me</span>
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {aboutPoints.map((point, index) => (
-            <Card key={index} className="bg-white/5 backdrop-blur-sm border-white/10 text-slate-300 hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-2">
+            <Card key={index} className="bg-card/80 dark:bg-card/5 backdrop-blur-sm border-border text-muted-foreground hover:bg-accent/80 dark:hover:bg-accent/10 transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="flex flex-row items-center gap-4 pb-4">
                 {point.icon}
-                <CardTitle className="text-xl text-white">{point.title}</CardTitle>
+                <CardTitle className="text-xl text-foreground">{point.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-slate-400 leading-relaxed">{point.description}</p>
+                <p className="leading-relaxed">{point.description}</p>
               </CardContent>
             </Card>
           ))}
