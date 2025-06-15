@@ -59,7 +59,7 @@ const Experience = () => {
     },
     {
       title: "Associate Software Engineer",
-      company: "Prudence Technologies pvt ltd - Noida",
+      company: "Proeffico",
       location: "Noida",
       duration: "Jan 2025 – present",
       achievements: [

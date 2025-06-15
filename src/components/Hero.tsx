@@ -82,12 +82,10 @@ const Hero = () => {
           Gautam Sachdeva
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-slate-300 animate-fade-in animation-delay-200">
-          Data Scientist & Software Engineer
+          DevOps & MLOps Engineer
         </p>
         <p className="text-lg mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
-          Passionate about building scalable cloud architectures, implementing ML solutions, 
-          and creating robust DevOps pipelines. Experienced in full-stack development with 
-          a focus on performance optimization and system reliability.
+          A dedicated DevOps & MLOps Engineer with 1.5 years of hands-on experience in automating and optimizing mission-critical deployments. Passionate about architecting scalable cloud infrastructure, building robust CI/CD pipelines, and integrating machine learning workflows.
         </p>
         
         {/* Social Links */}
