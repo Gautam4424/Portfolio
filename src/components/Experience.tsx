@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
@@ -103,16 +102,15 @@ const Experience = () => {
                     <Briefcase size={14} className="text-cyan-400" />
                   </div>
                 </div>
+                
+                <p className="font-medium text-cyan-400 mb-2 flex items-center text-sm">
+                  <Calendar size={14} className="mr-2" />
+                  {exp.duration}
+                </p>
 
                 <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/40 to-blue-500/40 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
                   <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
-                      <h3 className="text-xl font-bold text-white mb-1 sm:mb-0">{exp.title}</h3>
-                      <div className="text-sm font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full flex items-center whitespace-nowrap self-start sm:self-center">
-                         <Calendar size={14} className="mr-2" />
-                         {exp.duration}
-                      </div>
-                    </div>
+                    <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
                     <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
                     <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
                       <MapPin size={16} className="mr-2" />
