@@ -1,7 +1,11 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
-import { Code, Globe, Cloud, Database, Server, TerminalSquare } from 'lucide-react';
+import { 
+  Code, Globe, Cloud, Database, Server, TerminalSquare,
+  Braces, FileCode2, Paintbrush, Atom, Container, Wrench, Search, Workflow, CloudCog, DatabaseSearch, Monitor, Terminal 
+} from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 const FloatingSkill = ({ 
@@ -52,7 +56,7 @@ const SkillCategory = ({
   icon 
 }: { 
   title: string; 
-  skills: string[]; 
+  skills: { name: string; icon: React.ReactNode }[]; 
   icon: React.ReactNode;
 }) => {
   const { resolvedTheme } = useTheme();
@@ -67,14 +71,15 @@ const SkillCategory = ({
         <span className="text-primary mr-3">{icon}</span>
         <h3 className="text-xl font-bold text-foreground">{title}</h3>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {skills.map((skill, index) => (
-          <span 
+          <div
             key={index} 
-            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
+            className="flex items-center gap-2 bg-secondary/70 backdrop-blur-sm px-4 py-2 rounded-lg border border-border/50 hover:bg-secondary transition-all duration-200"
           >
-            {skill}
-          </span>
+            <span className="text-primary">{skill.icon}</span>
+            <span className="text-foreground text-sm font-medium">{skill.name}</span>
+          </div>
         ))}
       </div>
     </div>
@@ -86,32 +91,58 @@ const Skills = () => {
     {
       title: "Programming Languages",
       icon: <Code size={28} />,
-      skills: ["C++", "JavaScript", "Python"]
+      skills: [
+        { name: "C++", icon: <Braces size={16} /> },
+        { name: "JavaScript", icon: <Braces size={16} /> },
+        { name: "Python", icon: <Braces size={16} /> }
+      ]
     },
     {
       title: "Web Development",
       icon: <Globe size={28} />,
-      skills: ["HTML", "CSS", "JavaScript", "React.js"]
+      skills: [
+        { name: "HTML", icon: <FileCode2 size={16} /> },
+        { name: "CSS", icon: <Paintbrush size={16} /> },
+        { name: "JavaScript", icon: <Braces size={16} /> },
+        { name: "React.js", icon: <Atom size={16} /> }
+      ]
     },
     {
       title: "DevOps & Cloud",
       icon: <Cloud size={28} />,
-      skills: ["Docker", "Kubernetes", "Jenkins", "SonarQube", "CI/CD Pipelines", "Terraform"]
+      skills: [
+        { name: "Docker", icon: <Container size={16} /> },
+        { name: "Kubernetes", icon: <Container size={16} /> },
+        { name: "Jenkins", icon: <Wrench size={16} /> },
+        { name: "SonarQube", icon: <Search size={16} /> },
+        { name: "CI/CD Pipelines", icon: <Workflow size={16} /> },
+        { name: "Terraform", icon: <CloudCog size={16} /> }
+      ]
     },
     {
       title: "Databases",
       icon: <Database size={28} />,
-      skills: ["MySQL", "MongoDB", "Elastic Search"]
+      skills: [
+        { name: "MySQL", icon: <Database size={16} /> },
+        { name: "MongoDB", icon: <Database size={16} /> },
+        { name: "Elastic Search", icon: <DatabaseSearch size={16} /> }
+      ]
     },
     {
       title: "Web Servers",
       icon: <Server size={28} />,
-      skills: ["Nginx", "Apache2"]
+      skills: [
+        { name: "Nginx", icon: <Server size={16} /> },
+        { name: "Apache2", icon: <Server size={16} /> }
+      ]
     },
     {
       title: "Operating Systems",
       icon: <TerminalSquare size={28} />,
-      skills: ["Windows", "Linux"]
+      skills: [
+        { name: "Windows", icon: <Monitor size={16} /> },
+        { name: "Linux", icon: <Terminal size={16} /> }
+      ]
     }
   ];
 
