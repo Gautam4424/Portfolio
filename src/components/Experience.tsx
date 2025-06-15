@@ -15,7 +15,7 @@ const ExperienceCard = ({
   duration: string;
   achievements: string[];
 }) => (
-  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-105">
+  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
       <div>
         <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
@@ -78,10 +78,28 @@ const Experience = () => {
         <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-16">
           Professional <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
         </h2>
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <ExperienceCard key={index} {...exp} />
-          ))}
+        
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute h-full w-1 bg-cyan-400/20 left-4 md:left-1/2 transform md:-translate-x-1/2"></div>
+          
+          <div className="space-y-12">
+            {experiences.map((exp, index) => (
+              <div key={index} className="relative pl-12 md:pl-0">
+                {/* Timeline Dot */}
+                <div className="absolute top-2 left-4 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 border-4 border-slate-900"></div>
+                
+                <div className={`md:flex ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} items-start`}>
+                  <div className="md:w-1/2">
+                    <div className={`${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+                      <ExperienceCard {...exp} />
+                    </div>
+                  </div>
+                  <div className="md:w-1/2"></div> {/* Spacer */}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
