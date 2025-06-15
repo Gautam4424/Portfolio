@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin } from 'lucide-react';
 
 const Contact = () => {
   const cardClass = "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300";
@@ -16,7 +16,7 @@ const Contact = () => {
           or just having a conversation about technology and software development.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div className={cardClass}>
             <Mail className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
@@ -25,17 +25,6 @@ const Contact = () => {
               className="text-muted-foreground hover:text-primary transition-colors text-sm"
             >
               gautamsachdeva156@gmail.com
-            </a>
-          </div>
-
-          <div className={cardClass}>
-            <Phone className="mx-auto mb-4 text-primary" size={32} />
-            <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
-            <a 
-              href="tel:+916284217423"
-              className="text-muted-foreground hover:text-primary transition-colors text-sm"
-            >
-              +91 628 421 7423
             </a>
           </div>
 
