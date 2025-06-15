@@ -1,7 +1,6 @@
 
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, speed: number, xFactor: number, yFactor: number, zFactor: number }) => {
@@ -18,13 +17,14 @@ const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, 
       ref.current.position.y += speed * delta;
       if (ref.current.position.y > 20) { // reset when it goes high up
         ref.current.position.y = -20; // reset to the bottom
-        ref.current.position.x = (Math.random() - 0.5) * 30; // reset x position
+        ref.current.position.x = xFactor + (Math.random() - 0.5) * 30; // reset x position
       }
     }
   });
 
   return (
-    <Sphere ref={ref} args={[factor, 32, 32]} position={position}>
+    <mesh ref={ref} position={position}>
+      <sphereGeometry args={[factor, 32, 32]} />
       <meshStandardMaterial 
         color="#ccfbf1" 
         transparent 
@@ -34,7 +34,7 @@ const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, 
         emissive="#06b6d4"
         emissiveIntensity={0.2}
       />
-    </Sphere>
+    </mesh>
   );
 };
 
