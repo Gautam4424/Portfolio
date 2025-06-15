@@ -1,20 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
+
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
-import { useTheme } from 'next-themes';
 
 const AnimatedWavyPlane = () => {
   const meshRef = useRef<Mesh>(null!);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   
   useFrame(({ clock }) => {
     if (meshRef.current) {
       const time = clock.elapsedTime;
       const positions = meshRef.current.geometry.attributes.position;
       
-      // Store original positions on the geometry's user data if not already present
       if (!meshRef.current.geometry.userData.originalPosition) {
         meshRef.current.geometry.userData.originalPosition = positions.clone();
       }
@@ -32,13 +28,11 @@ const AnimatedWavyPlane = () => {
     }
   });
 
-  if (!mounted) return null;
-
   return (
     <mesh ref={meshRef} rotation={[-Math.PI / 2.3, 0, 0]} position={[0, -2, -5]}>
       <planeGeometry args={[50, 30, 70, 70]} />
       <meshStandardMaterial
-        color={resolvedTheme === 'dark' ? '#ffffff' : '#3b82f6'}
+        color={'#ffffff'}
         wireframe
       />
     </mesh>
@@ -57,8 +51,8 @@ const Hero = () => {
         </Canvas>
       </div>
 
-      {/* Content - moved up by 50px using negative margin */}
-      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto pb-60 -mt-24">
+      {/* Content */}
+      <div className="relative z-10 text-center text-foreground max-w-2xl mx-auto -mt-24 bg-black/30 backdrop-blur-sm p-8 rounded-2xl">
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
