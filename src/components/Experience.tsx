@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 
 const ExperienceCard = ({ 
@@ -71,28 +71,14 @@ const Experience = () => {
     }
   ];
 
-  const experiencesByYear = useMemo(() => {
-    const grouped: Record<string, typeof experiences> = {};
-    experiences.forEach(exp => {
-      const yearMatch = exp.duration.match(/\d{4}/g); // Use global match to find all years
-      if (yearMatch) {
-        // Handle duration spanning multiple years if needed, for now using first year
-        const year = yearMatch[0];
-        if (!grouped[year]) {
-          grouped[year] = [];
-        }
-        grouped[year].push(exp);
-      }
-    });
-    return grouped;
-  }, []);
-
-  const years = useMemo(() => 
-    Object.keys(experiencesByYear).sort((a, b) => Number(b) - Number(a)),
-    [experiencesByYear]
-  );
-
-  const [activeYear, setActiveYear] = useState<string | null>(years[0] || null);
+  // Sort experiences to show the most recent first
+  const sortedExperiences = [...experiences].sort((a, b) => {
+    const getYear = (duration: string) => {
+      const match = duration.match(/\d{4}/);
+      return match ? parseInt(match[0], 10) : 0;
+    };
+    return getYear(b.duration) - getYear(a.duration);
+  });
 
   return (
     <section id="experience" className="py-20 px-6">
@@ -101,32 +87,11 @@ const Experience = () => {
           Professional <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
         </h2>
         
-        <div className="flex justify-center items-center flex-wrap gap-4 mb-12">
-          {years.map(year => (
-            <button
-              key={year}
-              onClick={() => setActiveYear(year)}
-              className={`px-6 py-2 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105
-                ${activeYear === year 
-                  ? 'bg-cyan-400 text-slate-900 shadow-lg shadow-cyan-400/30' 
-                  : 'bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white'
-                }`
-              }
-            >
-              {year}
-            </button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {sortedExperiences.map((exp, index) => (
+            <ExperienceCard key={index} {...exp} />
           ))}
         </div>
-
-        {activeYear && (
-            <div className="animate-fade-in">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {experiencesByYear[activeYear].map((exp, index) => (
-                        <ExperienceCard key={index} {...exp} />
-                    ))}
-                </div>
-            </div>
-        )}
       </div>
     </section>
   );
