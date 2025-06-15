@@ -1,8 +1,6 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
-import { Github, Linkedin, Mail } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 const AnimatedWavyPlane = () => {
@@ -62,41 +60,9 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
+        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
-        <p className="text-xl md:text-2xl mb-8 text-muted-foreground animate-fade-in animation-delay-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-          DevOps & MLOps Engineer
-        </p>
-        <p className="text-lg mb-12 text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
-          A results-driven engineer passionate about architecting resilient, scalable cloud infrastructure and automating the full software lifecycle. Proven track record in building robust CI/CD pipelines and optimizing mission-critical deployments, bridging the gap between development, operations, and machine learning.
-        </p>
-        
-        {/* Social Links */}
-        <div className="flex justify-center space-x-6 mb-12 animate-fade-in animation-delay-600">
-          <a 
-            href="https://github.com/Gautam4424"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-secondary/50 backdrop-blur-sm rounded-full hover:bg-secondary transition-all duration-300 hover:scale-110"
-          >
-            <Github size={24} />
-          </a>
-          <a 
-            href="https://linkedin.com/in/gautam-sachdeva-0ba4a216/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 bg-secondary/50 backdrop-blur-sm rounded-full hover:bg-secondary transition-all duration-300 hover:scale-110"
-          >
-            <Linkedin size={24} />
-          </a>
-          <a 
-            href="mailto:gautamsachdeva156@gmail.com"
-            className="p-3 bg-secondary/50 backdrop-blur-sm rounded-full hover:bg-secondary transition-all duration-300 hover:scale-110"
-          >
-            <Mail size={24} />
-          </a>
-        </div>
       </div>
     </section>
   );
