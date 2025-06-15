@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Mail, MapPin, Github, Linkedin } from 'lucide-react';
 
@@ -5,8 +6,8 @@ const Contact = () => {
   const cardClass = "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300";
 
   return (
-    <section id="contact" className="py-20 px-6 min-h-screen flex items-center">
-      <div className="max-w-4xl mx-auto text-center w-full">
+    <section id="contact" className="py-20 px-6">
+      <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
           Let's <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Connect</span>
         </h2>

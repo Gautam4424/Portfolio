@@ -10,16 +10,17 @@ import Contact from '../components/Contact';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-foreground">
-      <FloatingNav />
-      <Hero />
-      <About />
-      <div className="min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen bg-professional-bg bg-cover bg-fixed bg-center text-foreground">
+      <div className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm" />
+      <div className="relative z-10">
+        <FloatingNav />
+        <Hero />
+        <About />
         <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
       </div>
-      <Projects />
-      <Skills />
-      <Contact />
     </div>
   );
 };

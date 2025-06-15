@@ -140,7 +140,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className={`py-20 px-6 min-h-screen flex flex-col justify-center ${resolvedTheme === 'dark' ? 'bg-muted/20' : 'bg-slate-50'}`}>
+    <section id="projects" className={`py-20 px-6 ${resolvedTheme === 'dark' ? 'bg-muted/20' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16">
           DevOps & Engineering <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Projects</span>
