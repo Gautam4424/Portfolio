@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { name: 'Home', href: '#home', icon: Home },
@@ -17,6 +18,7 @@ const FloatingNav = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const navRef = useRef<HTMLDivElement>(null);
+  const [activeLink, setActiveLink] = useState('Home');
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (navRef.current) {
@@ -61,6 +63,38 @@ const FloatingNav = () => {
     };
   }, [isDragging, offset]);
 
+  useEffect(() => {
+    const sections = navLinks.map(link => document.querySelector(link.href));
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const visibleSection = navLinks.find(
+              link => `#${entry.target.id}` === link.href
+            );
+            if (visibleSection) {
+              setActiveLink(visibleSection.name);
+            }
+          }
+        });
+      },
+      {
+        rootMargin: "-50% 0px -50% 0px",
+      }
+    );
+
+    sections.forEach(section => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach(section => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
+
   const navClass = "group bg-card/80 backdrop-blur-md p-3 rounded-full flex flex-col items-center gap-4 shadow-2xl shadow-primary/10 border border-border";
 
   return (
@@ -81,7 +115,12 @@ const FloatingNav = () => {
             <TooltipTrigger asChild>
               <a
                 href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 p-2 rounded-full hover:bg-accent"
+                className={cn(
+                  "p-2 rounded-full transition-colors duration-300",
+                  activeLink === link.name
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-primary hover:bg-accent"
+                )}
               >
                 <link.icon size={24} />
               </a>
