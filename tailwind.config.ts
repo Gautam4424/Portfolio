@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,9 +18,6 @@ export default {
 			}
 		},
 		extend: {
-			backgroundImage: {
-                'professional-bg': "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2070&auto=format&fit=crop')",
-            },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
