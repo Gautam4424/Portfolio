@@ -1,7 +1,10 @@
+
 import React, { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const Experience = () => {
+  const { resolvedTheme } = useTheme();
   const experiences = [
     {
       title: "Data Scientist",
@@ -102,6 +105,14 @@ const Experience = () => {
     return sortedExperiences.filter(exp => exp.duration === selectedDuration);
   }, [selectedDuration, sortedExperiences]);
 
+  const cardOuterClass = resolvedTheme === 'dark' 
+    ? "rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300"
+    : "rounded-xl border border-border transition-all duration-300";
+
+  const cardInnerClass = resolvedTheme === 'dark'
+    ? "bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full"
+    : "bg-card rounded-[10.5px] p-6 h-full";
+
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -140,8 +151,8 @@ const Experience = () => {
                     </div>
                   </div>
                   
-                  <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-primary/40 to-blue-500/40 hover:from-primary hover:to-blue-500 transition-all duration-300">
-                    <div className="bg-card/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
+                  <div className={cardOuterClass}>
+                    <div className={cardInnerClass}>
                       <h3 className="text-xl font-bold text-foreground mb-1">{exp.title}</h3>
                       <h4 className="text-lg text-primary font-semibold">{exp.company}</h4>
                       <div className="flex items-center text-muted-foreground text-sm mt-1 mb-4">

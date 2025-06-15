@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Rocket, Cloud, Cog, Wrench, Layers, Shield } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -51,7 +50,7 @@ const About = () => {
             <Card key={index} className={
               resolvedTheme === 'dark'
                 ? "bg-card/40 backdrop-blur-lg border-border/40 text-muted-foreground hover:bg-accent/30 transition-all duration-300 transform hover:-translate-y-2"
-                : "bg-card/95 backdrop-blur-sm border-border text-muted-foreground hover:bg-accent/80 transition-all duration-300 transform hover:-translate-y-2"
+                : "bg-card border border-border text-muted-foreground hover:bg-accent transition-all duration-300 transform hover:-translate-y-2"
             }>
               <CardHeader className="flex flex-row items-center gap-4 pb-4">
                 {point.icon}

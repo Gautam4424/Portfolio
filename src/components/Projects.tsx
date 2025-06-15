@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { ExternalLink, Github, ServerCog, Workflow, CloudCog, Code2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const ProjectCard = ({ 
   title, 
@@ -15,53 +17,62 @@ const ProjectCard = ({
   achievements: string[];
   links?: { github?: string; live?: string; };
   icon: React.ReactNode;
-}) => (
-  <div className="bg-card backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/50 transition-all duration-300 hover:scale-105 flex flex-col h-full">
-    <div className="flex justify-between items-start mb-4">
-      <div className="flex items-center gap-3">
-        <span className="text-primary">{icon}</span>
-        <h3 className="text-xl font-bold text-foreground">{title}</h3>
-      </div>
-      {links && (
-        <div className="flex space-x-2">
-          {links.github && (
-            <a href={links.github} target="_blank" rel="noopener noreferrer" 
-               className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors">
-              <Github size={16} />
-            </a>
-          )}
-          {links.live && (
-            <a href={links.live} target="_blank" rel="noopener noreferrer"
-               className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors">
-              <ExternalLink size={16} />
-            </a>
-          )}
+}) => {
+  const { resolvedTheme } = useTheme();
+  
+  const cardClass = resolvedTheme === 'dark'
+    ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300 hover:scale-105 flex flex-col h-full"
+    : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300 hover:scale-105 flex flex-col h-full";
+  
+  return (
+    <div className={cardClass}>
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex items-center gap-3">
+          <span className="text-primary">{icon}</span>
+          <h3 className="text-xl font-bold text-foreground">{title}</h3>
         </div>
-      )}
+        {links && (
+          <div className="flex space-x-2">
+            {links.github && (
+              <a href={links.github} target="_blank" rel="noopener noreferrer" 
+                 className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors">
+                <Github size={16} />
+              </a>
+            )}
+            {links.live && (
+              <a href={links.live} target="_blank" rel="noopener noreferrer"
+                 className="p-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors">
+                <ExternalLink size={16} />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      
+      <p className="text-muted-foreground mb-4 text-sm leading-relaxed flex-grow">{description}</p>
+      
+      <div className="flex flex-wrap gap-2 mb-4">
+        {technologies.map((tech, index) => (
+          <span key={index} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+            {tech}
+          </span>
+        ))}
+      </div>
+      
+      <ul className="space-y-1">
+        {achievements.map((achievement, index) => (
+          <li key={index} className="text-muted-foreground text-xs leading-relaxed">
+            <span className="text-primary mr-2">•</span>
+            {achievement}
+          </li>
+        ))}
+      </ul>
     </div>
-    
-    <p className="text-muted-foreground mb-4 text-sm leading-relaxed flex-grow">{description}</p>
-    
-    <div className="flex flex-wrap gap-2 mb-4">
-      {technologies.map((tech, index) => (
-        <span key={index} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-          {tech}
-        </span>
-      ))}
-    </div>
-    
-    <ul className="space-y-1">
-      {achievements.map((achievement, index) => (
-        <li key={index} className="text-muted-foreground text-xs leading-relaxed">
-          <span className="text-primary mr-2">•</span>
-          {achievement}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+  );
+};
 
 const Projects = () => {
+  const { resolvedTheme } = useTheme();
   const projects = [
     {
       title: "Vizo361.ai - Multi-Tenant Cloud Architecture",
@@ -130,7 +141,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 px-6 bg-muted/20">
+    <section id="projects" className={`py-20 px-6 ${resolvedTheme === 'dark' ? 'bg-muted/20' : 'bg-slate-50'}`}>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16">
           DevOps & Engineering <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Projects</span>

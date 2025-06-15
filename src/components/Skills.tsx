@@ -61,7 +61,7 @@ const SkillCategory = ({
     <div className={
         resolvedTheme === 'dark'
         ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
-        : "bg-card/95 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 transition-all duration-300"
+        : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300"
     }>
       <div className="flex items-center mb-4">
         <span className="text-primary mr-3">{icon}</span>

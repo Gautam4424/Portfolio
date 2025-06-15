@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -8,7 +7,7 @@ const Contact = () => {
   
   const cardClass = resolvedTheme === 'dark'
     ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
-    : "bg-card/95 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 transition-all duration-300";
+    : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300";
 
   return (
     <section id="contact" className="py-20 px-6">

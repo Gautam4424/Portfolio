@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { useTheme } from 'next-themes';
 
 const navLinks = [
   { name: 'Home', href: '#home', icon: Home },
@@ -12,6 +13,7 @@ const navLinks = [
 ];
 
 const FloatingNav = () => {
+  const { resolvedTheme } = useTheme();
   const [position, setPosition] = useState({ x: window.innerWidth - 100, y: window.innerHeight / 2 - 150 });
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -60,13 +62,17 @@ const FloatingNav = () => {
     };
   }, [isDragging, offset]);
 
+  const navClass = resolvedTheme === 'dark'
+    ? "group bg-card/80 backdrop-blur-md p-3 rounded-full flex flex-col items-center gap-4 shadow-2xl shadow-primary/10 border border-border"
+    : "group bg-card p-3 rounded-full flex flex-col items-center gap-4 shadow-lg border border-border";
+
   return (
     <div
       ref={navRef}
       style={{ top: `${position.y}px`, left: `${position.x}px` }}
       className="fixed z-50"
     >
-      <div className="group bg-card/80 backdrop-blur-md p-3 rounded-full flex flex-col items-center gap-4 shadow-2xl shadow-primary/10 border border-border">
+      <div className={navClass}>
         <div 
           className="cursor-grabbing text-muted-foreground hover:text-foreground transition-colors"
           onMouseDown={handleMouseDown}
