@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
 const Experience = () => {
@@ -30,15 +31,14 @@ const Experience = () => {
     }
   ];
 
-  // Sort experiences to show the most recent first
+  const getYear = (duration: string) => {
+    const parts = duration.split(' ');
+    const yearStr = parts[parts.length - 1];
+    if (yearStr === 'present') return new Date().getFullYear();
+    return parseInt(yearStr, 10);
+  };
+
   const sortedExperiences = [...experiences].sort((a, b) => {
-    const getYear = (duration: string) => {
-      const parts = duration.split(' ');
-      const year = parts[parts.length -1];
-      if (year === 'present') return new Date().getFullYear();
-      return parseInt(year, 10);
-    };
-    
     const getMonth = (duration: string) => {
         const parts = duration.split(' ');
         const monthStr = parts[0];
@@ -56,6 +56,17 @@ const Experience = () => {
     return getMonth(b.duration) - getMonth(a.duration);
   });
 
+  const uniqueYears = useMemo(() => {
+    const years = new Set(experiences.map(exp => getYear(exp.duration)));
+    return Array.from(years).sort((a, b) => b - a);
+  }, [experiences]);
+
+  const [selectedYear, setSelectedYear] = useState(uniqueYears[0]);
+
+  const filteredExperiences = useMemo(() => {
+    return sortedExperiences.filter(exp => getYear(exp.duration) === selectedYear);
+  }, [selectedYear, sortedExperiences]);
+
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -63,18 +74,45 @@ const Experience = () => {
           Professional <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
         </h2>
 
-        <div className="relative">
-          {/* Vertical Timeline */}
-          <div className="absolute left-4 md:left-1/2 w-0.5 h-full bg-cyan-400/30 transform md:-translate-x-1/2"></div>
+        <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+          {/* Year Selector */}
+          <div className="flex flex-row md:flex-col gap-4 justify-center md:justify-start flex-wrap">
+            {uniqueYears.map(year => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`w-24 text-lg font-bold p-2 text-center rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                  selectedYear === year
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
+                    : 'text-slate-400 bg-slate-800/50 border border-slate-700 hover:text-white hover:border-cyan-400'
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
 
-          {sortedExperiences.map((exp, index) => (
-            <div key={index} className="relative pl-12 md:pl-0 mb-16">
-              <div className={`flex flex-col md:flex-row items-start ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                
-                {/* Content Card with gradient border */}
-                <div className="w-full md:w-[calc(50%-40px)] rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/60 to-blue-500/60 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
+          {/* Timeline */}
+          <div className="relative flex-1">
+            <div className="absolute left-4 top-2 w-0.5 h-[calc(100%-1rem)] bg-cyan-400/30"></div>
+
+            {filteredExperiences.map((exp, index) => (
+              <div key={index} className="relative pl-16 pb-12">
+                <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
+                  <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
+                    <Briefcase size={14} className="text-cyan-400" />
+                  </div>
+                </div>
+
+                <div className="rounded-xl p-[1.5px] bg-gradient-to-br from-cyan-400/40 to-blue-500/40 hover:from-cyan-400 hover:to-blue-500 transition-all duration-300">
                   <div className="bg-slate-900/90 backdrop-blur-sm rounded-[10.5px] p-6 h-full">
-                    <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                      <h3 className="text-xl font-bold text-white mb-1 sm:mb-0">{exp.title}</h3>
+                      <div className="text-sm font-medium text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full flex items-center whitespace-nowrap self-start sm:self-center">
+                         <Calendar size={14} className="mr-2" />
+                         {exp.duration}
+                      </div>
+                    </div>
                     <h4 className="text-lg text-cyan-400 font-semibold">{exp.company}</h4>
                     <div className="flex items-center text-slate-400 text-sm mt-1 mb-4">
                       <MapPin size={16} className="mr-2" />
@@ -90,26 +128,9 @@ const Experience = () => {
                     </ul>
                   </div>
                 </div>
-
-                {/* Desktop Spacer */}
-                <div className="w-[80px] hidden md:block"></div>
               </div>
-
-              {/* Timeline Dot and Date */}
-              <div className="absolute top-0 left-4 md:left-1/2 w-full transform -translate-x-1/2 flex items-center md:flex-col">
-                <div className="bg-slate-900 border-4 border-cyan-400 rounded-full h-8 w-8 z-10 flex items-center justify-center">
-                   <Briefcase size={14} className="text-cyan-400" />
-                </div>
-                 <div className={`text-sm font-semibold text-cyan-400 bg-slate-800/50 backdrop-blur-sm px-3 py-1 rounded-full whitespace-nowrap ml-4 md:ml-0 md:mt-4
-                  ${index % 2 !== 0 ? 'md:mr-[calc(100%+60px)]' : 'md:ml-[calc(100%+60px)]' }`}>
-                  <div className="flex items-center">
-                    <Calendar size={14} className="mr-2" />
-                    {exp.duration}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
