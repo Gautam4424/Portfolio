@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin, Briefcase } from 'lucide-react';
 
@@ -62,22 +61,32 @@ const Experience = () => {
 
   const [selectedDuration, setSelectedDuration] = useState(uniqueDurations[0]);
   const [animationClass, setAnimationClass] = useState('animate-fade-in');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleDurationClick = (duration: string) => {
-    const currentIndex = uniqueDurations.indexOf(selectedDuration);
-    const newIndex = uniqueDurations.indexOf(duration);
-
-    if (newIndex === currentIndex) {
+    if (isTransitioning || duration === selectedDuration) {
       return;
     }
+    
+    setIsTransitioning(true);
+    
+    const currentIndex = uniqueDurations.indexOf(selectedDuration);
+    const newIndex = uniqueDurations.indexOf(duration);
+    const isMovingToNewer = newIndex < currentIndex;
 
-    if (newIndex > currentIndex) {
-      setAnimationClass('animate-slide-in-down');
-    } else {
-      setAnimationClass('animate-slide-in-up');
-    }
+    // Set exit animation
+    setAnimationClass(isMovingToNewer ? 'animate-slide-out-down' : 'animate-slide-out-up');
 
-    setSelectedDuration(duration);
+    // After exit animation, update content and set enter animation
+    setTimeout(() => {
+      setSelectedDuration(duration);
+      setAnimationClass(isMovingToNewer ? 'animate-slide-in-down' : 'animate-slide-in-up');
+    }, 500); // Duration of exit animation
+
+    // Unlock clicks after the full transition is complete
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 1000); // Total duration (exit + enter)
   };
 
   const filteredExperiences = useMemo(() => {
