@@ -59,10 +59,13 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center text-foreground px-6 max-w-4xl mx-auto mb-20">
         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]">
           Gautam Sachdeva
         </h1>
+        <p className="text-xl md:text-2xl mt-4 text-muted-foreground animate-fade-in animation-delay-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+          DevOps & MLOps Engineer
+        </p>
       </div>
     </section>
   );
