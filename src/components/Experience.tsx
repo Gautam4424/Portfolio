@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 
@@ -15,7 +14,7 @@ const ExperienceCard = ({
   duration: string;
   achievements: string[];
 }) => (
-  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
       <div>
         <h3 className="text-xl font-bold text-white mb-1">{title}</h3>
@@ -75,8 +74,9 @@ const Experience = () => {
   const experiencesByYear = useMemo(() => {
     const grouped: Record<string, typeof experiences> = {};
     experiences.forEach(exp => {
-      const yearMatch = exp.duration.match(/\d{4}/);
+      const yearMatch = exp.duration.match(/\d{4}/g); // Use global match to find all years
       if (yearMatch) {
+        // Handle duration spanning multiple years if needed, for now using first year
         const year = yearMatch[0];
         if (!grouped[year]) {
           grouped[year] = [];
@@ -94,10 +94,6 @@ const Experience = () => {
 
   const [activeYear, setActiveYear] = useState<string | null>(years[0] || null);
 
-  const getGlobalIndex = (expToFind: typeof experiences[0]) => {
-    return experiences.findIndex(exp => exp.title === expToFind.title && exp.company === expToFind.company);
-  };
-
   return (
     <section id="experience" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -105,52 +101,32 @@ const Experience = () => {
           Professional <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Experience</span>
         </h2>
         
-        <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute h-full w-1 bg-cyan-400/20 left-4 md:left-1/2 transform md:-translate-x-1/2"></div>
-          
-          <div className="space-y-8">
-            {years.map((year, yearIndex) => (
-              <div key={year} className="relative pl-12 md:pl-0">
-                {/* Year Marker on Timeline */}
-                <div className="absolute top-1 left-4 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-1/2 border-4 border-slate-900 z-10"></div>
-                <div className={`md:flex items-center ${activeYear === year ? 'mb-8' : ''}`}>
-                  <div className={`w-full md:w-1/2 ${yearIndex % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left md:ml-auto'}`}>
-                      <button 
-                          onClick={() => setActiveYear(prev => prev === year ? null : year)}
-                          className="text-2xl font-bold text-white p-2 bg-transparent border-none cursor-pointer hover:text-cyan-400 transition-colors w-full text-left md:text-inherit"
-                      >
-                          {year}
-                      </button>
-                  </div>
-                  <div className="hidden md:block md:w-1/2"></div>
-                </div>
-
-                {activeYear === year && (
-                    <div className="animate-fade-in space-y-12">
-                        {experiencesByYear[year].map((exp, index) => {
-                            const globalIndex = getGlobalIndex(exp);
-                            return (
-                                <div key={index} className="relative">
-                                    {/* Small dot for experience */}
-                                    <div className="absolute top-2 left-[-32px] md:left-1/2 w-3 h-3 bg-slate-500 rounded-full transform -translate-x-1/2 border-2 border-slate-900"></div>
-                                    <div className={`md:flex ${globalIndex % 2 !== 0 ? 'md:flex-row-reverse' : ''} items-start`}>
-                                        <div className="md:w-1/2">
-                                            <div className={`${globalIndex % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
-                                                <ExperienceCard {...exp} />
-                                            </div>
-                                        </div>
-                                        <div className="md:w-1/2"></div> {/* Spacer */}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-              </div>
-            ))}
-          </div>
+        <div className="flex justify-center items-center flex-wrap gap-4 mb-12">
+          {years.map(year => (
+            <button
+              key={year}
+              onClick={() => setActiveYear(year)}
+              className={`px-6 py-2 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105
+                ${activeYear === year 
+                  ? 'bg-cyan-400 text-slate-900 shadow-lg shadow-cyan-400/30' 
+                  : 'bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white'
+                }`
+              }
+            >
+              {year}
+            </button>
+          ))}
         </div>
+
+        {activeYear && (
+            <div className="animate-fade-in">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {experiencesByYear[activeYear].map((exp, index) => (
+                        <ExperienceCard key={index} {...exp} />
+                    ))}
+                </div>
+            </div>
+        )}
       </div>
     </section>
   );
