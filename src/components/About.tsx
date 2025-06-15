@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { Rocket, Cloud, Cog, Wrench, Layers, Shield } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useTheme } from 'next-themes';
 
 const aboutPoints = [
   {
@@ -37,8 +37,6 @@ const aboutPoints = [
 ];
 
 const About = () => {
-  const { resolvedTheme } = useTheme();
-
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -47,11 +45,7 @@ const About = () => {
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {aboutPoints.map((point, index) => (
-            <Card key={index} className={
-              resolvedTheme === 'dark'
-                ? "bg-card/40 backdrop-blur-lg border-border/40 text-muted-foreground hover:bg-accent/30 transition-all duration-300 transform hover:-translate-y-2"
-                : "bg-card border border-border text-muted-foreground hover:bg-accent transition-all duration-300 transform hover:-translate-y-2"
-            }>
+            <Card key={index} className="bg-card/40 backdrop-blur-lg border-border/40 text-muted-foreground hover:bg-accent/30 transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader className="flex flex-row items-center gap-4 pb-4">
                 {point.icon}
                 <CardTitle className="text-xl text-foreground">{point.title}</CardTitle>
