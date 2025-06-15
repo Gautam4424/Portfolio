@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
@@ -50,7 +49,7 @@ const SkillCategory = ({
 }) => {
   return (
     <div 
-      className="bg-slate-900/30 backdrop-blur-md border border-cyan-400/20 rounded-xl p-6 transition-all duration-300 hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/10 animate-fade-in"
+      className="bg-slate-100 dark:bg-slate-900/30 dark:backdrop-blur-md border border-cyan-500/20 dark:border-cyan-400/20 rounded-xl p-6 transition-all duration-300 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-lg hover:shadow-cyan-500/10 animate-fade-in"
       style={{ animationDelay, animationFillMode: 'backwards' }}
     >
       <div className="flex items-center mb-4">

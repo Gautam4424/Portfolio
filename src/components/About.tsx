@@ -45,7 +45,7 @@ const About = () => {
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {aboutPoints.map((point, index) => (
-            <Card key={index} className="bg-card/40 backdrop-blur-lg border-border/40 text-muted-foreground hover:bg-accent/30 transition-all duration-300 transform hover:-translate-y-2">
+            <Card key={index} className="bg-card border-border text-muted-foreground hover:bg-accent transition-all duration-300 transform hover:-translate-y-2 dark:bg-card/40 dark:backdrop-blur-lg dark:border-border/40 dark:hover:bg-accent/30">
               <CardHeader className="flex flex-row items-center gap-4 pb-4">
                 {point.icon}
                 <CardTitle className="text-xl text-foreground">{point.title}</CardTitle>

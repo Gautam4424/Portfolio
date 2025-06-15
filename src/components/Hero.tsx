@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Starry Background */}
-      <div className="absolute inset-0 z-0 stars-bg" />
+      <div className="absolute inset-0 z-0 bg-background dark:stars-bg" />
 
       {/* Content */}
       <div 

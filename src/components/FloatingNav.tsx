@@ -1,7 +1,9 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
+import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move, Sun, Moon } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 const navLinks = [
   { name: 'Home', href: '#home', icon: Home },
@@ -18,6 +20,7 @@ const FloatingNav = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const navRef = useRef<HTMLDivElement>(null);
   const [activeLink, setActiveLink] = useState('Home');
+  const { theme, setTheme } = useTheme();
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (navRef.current) {
@@ -133,6 +136,23 @@ const FloatingNav = () => {
             </TooltipContent>
           </Tooltip>
         ))}
+        <div className="pt-2 mt-2 border-t border-border/40">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="relative p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-accent"
+              >
+                <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute top-2 left-2 h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Toggle Theme</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import { Mail, MapPin, Github, Linkedin } from 'lucide-react';
 
 const Contact = () => {
-  const cardClass = "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300";
+  const cardClass = "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300 dark:bg-card/40 dark:backdrop-blur-lg dark:border-border/40 dark:hover:bg-accent/30";
 
   return (
     <section id="contact" className="py-20 px-6">

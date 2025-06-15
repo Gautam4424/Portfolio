@@ -1,6 +1,5 @@
 import React from 'react';
 import { ExternalLink, Github, ServerCog, Workflow, CloudCog, Code2 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 const ProjectCard = ({ 
   title, 
@@ -17,11 +16,8 @@ const ProjectCard = ({
   links?: { github?: string; live?: string; };
   icon: React.ReactNode;
 }) => {
-  const { resolvedTheme } = useTheme();
   
-  const cardClass = resolvedTheme === 'dark'
-    ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300 hover:scale-105 flex flex-col h-full"
-    : "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300 hover:scale-105 flex flex-col h-full";
+  const cardClass = "bg-card rounded-xl p-6 border border-border hover:bg-accent transition-all duration-300 hover:scale-105 flex flex-col h-full dark:bg-card/40 dark:backdrop-blur-lg dark:border-border/40 dark:hover:bg-accent/30";
   
   return (
     <div className={cardClass}>
@@ -71,7 +67,6 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
-  const { resolvedTheme } = useTheme();
   const projects = [
     {
       title: "Vizo361.ai - Multi-Tenant Cloud Architecture",
@@ -140,7 +135,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className={`py-20 px-6 ${resolvedTheme === 'dark' ? 'bg-muted/20' : 'bg-slate-50'}`}>
+    <section id="projects" className="py-20 px-6 bg-slate-50 dark:bg-muted/20">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-16">
           DevOps & Engineering <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Projects</span>
