@@ -33,7 +33,7 @@ const Hero = () => {
       <div 
         className="relative z-10 text-center text-foreground max-w-3xl mx-auto p-8 rounded-2xl 
                    bg-slate-900/30 backdrop-blur-md border border-cyan-400/20 
-                   shadow-2xl shadow-cyan-500/10"
+                   shadow-2xl shadow-cyan-500/10 animate-float"
       >
         <h1 
           className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-fade-in bg-[length:200%_auto] animate-gradient-pan drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"

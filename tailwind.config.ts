@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -101,6 +100,10 @@ export default {
             '50%': { 'background-position': '100% 50%' },
             '100%': { 'background-position': '0% 50%' },
         },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
         'slide-in-up': {
           from: { opacity: '0', transform: 'translateY(30px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
@@ -123,6 +126,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
         'gradient-pan': 'gradient-pan 6s ease infinite',
+        'float': 'float 6s ease-in-out infinite',
         'slide-in-up': 'slide-in-up 0.5s ease-out',
         'slide-in-down': 'slide-in-down 0.5s ease-out',
         'slide-out-up': 'slide-out-up 0.5s ease-out',
