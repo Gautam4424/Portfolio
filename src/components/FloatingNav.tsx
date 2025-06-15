@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Home, User, Briefcase, FolderGit2, Wrench, Mail, Move } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -80,7 +79,7 @@ const FloatingNav = () => {
         });
       },
       {
-        rootMargin: "-50% 0px -50% 0px",
+        rootMargin: "-40% 0px -40% 0px",
       }
     );
 
