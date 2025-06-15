@@ -235,12 +235,6 @@ const Experience = () => {
             <div ref={containerRef} key={selectedDuration} className={animationClass}>
               {filteredExperiences.map((exp, index) => (
                 <div key={index} className="relative pl-16 pb-12">
-                  <div className="absolute top-1 left-4 w-8 h-8 transform -translate-x-1/2 flex items-center justify-center">
-                    <div className="bg-background border-4 border-primary rounded-full h-8 w-8 z-10 flex items-center justify-center">
-                      <Briefcase size={14} className="text-primary" />
-                    </div>
-                  </div>
-                  
                   <div className={experienceCardClass}>
                     <h3 className="text-xl font-bold text-foreground mb-1">{exp.title}</h3>
                     <h4 className="text-lg text-primary font-semibold">{exp.company}</h4>
