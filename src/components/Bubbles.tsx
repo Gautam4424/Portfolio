@@ -6,11 +6,11 @@ import * as THREE from 'three';
 
 const Bubble = ({ factor, speed, xFactor, yFactor, zFactor }: { factor: number, speed: number, xFactor: number, yFactor: number, zFactor: number }) => {
   const ref = useRef<THREE.Mesh>(null!);
-  const position = useMemo<[number, number, number]>(() => {
+  const position = useMemo(() => {
     const x = xFactor + (Math.random() - 0.5) * 30; // wider spread
     const y = yFactor + Math.random() * -30; // start from further down
     const z = zFactor + (Math.random() - 0.5) * 15;
-    return [x, y, z];
+    return new THREE.Vector3(x, y, z);
   }, [xFactor, yFactor, zFactor]);
 
   useFrame((state, delta) => {
