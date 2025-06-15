@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
@@ -101,7 +100,7 @@ const Skills = () => {
     <section className="py-20 px-6 relative overflow-hidden">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0 opacity-30">
-        <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
+        <Canvas camera={{ position: [0, 0, 10] }}>
           <ambientLight intensity={0.5} />
           <FloatingSkill text="React" position={[-4, 2, -2]} color="#61dafb" />
           <FloatingSkill text="Docker" position={[4, -1, -1]} color="#2496ed" />
