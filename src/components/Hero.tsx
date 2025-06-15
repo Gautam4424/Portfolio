@@ -1,11 +1,14 @@
-
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const AnimatedSphere = ({ position }: { position: [number, number, number] }) => {
   const meshRef = useRef<Mesh>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -15,16 +18,21 @@ const AnimatedSphere = ({ position }: { position: [number, number, number] }) =>
     }
   });
 
+  if (!mounted) return null;
+
   return (
     <mesh ref={meshRef} position={position}>
       <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial color="#3b82f6" wireframe />
+      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#3b82f6' : '#60a5fa'} wireframe />
     </mesh>
   );
 };
 
 const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
   const meshRef = useRef<Mesh>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -34,16 +42,21 @@ const AnimatedBox = ({ position }: { position: [number, number, number] }) => {
     }
   });
 
+  if (!mounted) return null;
+
   return (
     <mesh ref={meshRef} position={position}>
       <boxGeometry args={[0.8, 0.8, 0.8]} />
-      <meshStandardMaterial color="#06b6d4" wireframe />
+      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#06b6d4' : '#22d3ee'} wireframe />
     </mesh>
   );
 };
 
 const AnimatedTorus = ({ position }: { position: [number, number, number] }) => {
   const meshRef = useRef<Mesh>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -53,10 +66,12 @@ const AnimatedTorus = ({ position }: { position: [number, number, number] }) => 
     }
   });
 
+  if (!mounted) return null;
+
   return (
     <mesh ref={meshRef} position={position}>
       <torusGeometry args={[0.6, 0.2, 16, 32]} />
-      <meshStandardMaterial color="#8b5cf6" wireframe />
+      <meshStandardMaterial color={resolvedTheme === 'dark' ? '#8b5cf6' : '#a78bfa'} wireframe />
     </mesh>
   );
 };

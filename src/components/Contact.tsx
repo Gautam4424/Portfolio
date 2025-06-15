@@ -1,8 +1,15 @@
 
 import React from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const Contact = () => {
+  const { resolvedTheme } = useTheme();
+  
+  const cardClass = resolvedTheme === 'dark'
+    ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
+    : "bg-card/95 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 transition-all duration-300";
+
   return (
     <section id="contact" className="py-20 px-6">
       <div className="max-w-4xl mx-auto text-center">
@@ -15,7 +22,7 @@ const Contact = () => {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+          <div className={cardClass}>
             <Mail className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Email</h3>
             <a 
@@ -26,7 +33,7 @@ const Contact = () => {
             </a>
           </div>
 
-          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+          <div className={cardClass}>
             <Phone className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Phone</h3>
             <a 
@@ -37,7 +44,7 @@ const Contact = () => {
             </a>
           </div>
 
-          <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
+          <div className={cardClass}>
             <MapPin className="mx-auto mb-4 text-primary" size={32} />
             <h3 className="text-lg font-semibold text-foreground mb-2">Location</h3>
             <span className="text-muted-foreground text-sm">Zirakpur, India</span>

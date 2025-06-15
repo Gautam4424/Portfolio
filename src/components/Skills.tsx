@@ -1,18 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { Code, Globe, Cloud, Database, Server, TerminalSquare } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const FloatingSkill = ({ 
   text, 
   position, 
-  color = "#3b82f6" 
+  color: propColor = "#3b82f6" 
 }: { 
   text: string; 
   position: [number, number, number];
   color?: string;
 }) => {
   const meshRef = useRef<Mesh>(null);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   
   useFrame((state) => {
     if (meshRef.current) {
@@ -20,6 +24,19 @@ const FloatingSkill = ({
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.2;
     }
   });
+
+  if (!mounted) return null;
+
+  const lightColorMap = {
+    "#61dafb": "#7dd3fc", // React
+    "#2496ed": "#38bdf8", // Docker
+    "#3776ab": "#60a5fa", // Python
+    "#ff9900": "#fbbf24", // AWS
+    "#d33833": "#f87171", // Jenkins
+    "#326ce5": "#818cf8", // K8s
+  };
+
+  const color = resolvedTheme === 'dark' ? propColor : (lightColorMap[propColor] || propColor);
 
   return (
     <mesh ref={meshRef} position={position}>
@@ -37,24 +54,32 @@ const SkillCategory = ({
   title: string; 
   skills: string[]; 
   icon: React.ReactNode;
-}) => (
-  <div className="bg-card/80 dark:bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 dark:hover:bg-accent/50 transition-all duration-300">
-    <div className="flex items-center mb-4">
-      <span className="text-primary mr-3">{icon}</span>
-      <h3 className="text-xl font-bold text-foreground">{title}</h3>
+}) => {
+  const { resolvedTheme } = useTheme();
+
+  return (
+    <div className={
+        resolvedTheme === 'dark'
+        ? "bg-card/40 backdrop-blur-lg rounded-xl p-6 border border-border/40 hover:bg-accent/30 transition-all duration-300"
+        : "bg-card/95 backdrop-blur-sm rounded-xl p-6 border border-border hover:bg-accent/80 transition-all duration-300"
+    }>
+      <div className="flex items-center mb-4">
+        <span className="text-primary mr-3">{icon}</span>
+        <h3 className="text-xl font-bold text-foreground">{title}</h3>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill, index) => (
+          <span 
+            key={index} 
+            className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
     </div>
-    <div className="flex flex-wrap gap-2">
-      {skills.map((skill, index) => (
-        <span 
-          key={index} 
-          className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20 hover:border-primary/40 transition-colors"
-        >
-          {skill}
-        </span>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 const Skills = () => {
   const skillCategories = [
