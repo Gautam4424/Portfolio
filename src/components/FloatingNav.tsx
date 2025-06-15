@@ -66,20 +66,24 @@ const FloatingNav = () => {
     const sections = navLinks.map(link => document.querySelector(link.href));
 
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const visibleSection = navLinks.find(
-              link => `#${entry.target.id}` === link.href
-            );
-            if (visibleSection) {
-              setActiveLink(visibleSection.name);
-            }
+      (entries) => {
+        const intersectingEntries = entries.filter((entry) => entry.isIntersecting);
+
+        if (intersectingEntries.length > 0) {
+          const mostVisibleEntry = intersectingEntries.reduce((prev, current) => {
+            return prev.intersectionRatio > current.intersectionRatio ? prev : current;
+          });
+
+          const visibleSection = navLinks.find(
+            (link) => `#${mostVisibleEntry.target.id}` === link.href
+          );
+          if (visibleSection) {
+            setActiveLink(visibleSection.name);
           }
-        });
+        }
       },
       {
-        rootMargin: "-40% 0px -40% 0px",
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100),
       }
     );
 
